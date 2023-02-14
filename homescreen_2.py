@@ -43,9 +43,13 @@ class WeatherTimeDisplay(FloatLayout):
         self.time_label.text = datetime.now().strftime("%H:%M")
         self.date_label.text = datetime.now().strftime("%B %d, %Y")
 
+
+
+
 class WeatherTimeApp(App):
     def build(self):
         return WeatherTimeDisplay()
+
 
 if __name__ == "__main__":
     WeatherTimeApp().run()
