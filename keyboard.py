@@ -7,7 +7,6 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.dropdown import DropDown
 from kivy.uix.vkeyboard import VKeyboard
 from kivy.uix.gridlayout import GridLayout
-from kivymd.app import MDApp
 
 
 class SmartMirror(App):

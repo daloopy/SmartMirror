@@ -1,7 +1,14 @@
 #:kivy 1.11.1
 
-<welcomeScreen>:
-    canvas:
+
+
+<WeatherTimeDisplay@GridLayout>:
+    rows: 2
+    padding: 20, 20, 20, 20
+    spacing: 10, 10
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 0
         Rectangle:
-            pos: 50,50
-            size: 100,100
+            size: self.size
+            pos: self.pos

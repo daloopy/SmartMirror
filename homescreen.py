@@ -13,12 +13,21 @@ Window.size = (1440,1600) # full screen on Mac 13 inch
 
 class SmartMirror(App):
     def build(self):
-        self.layout = GridLayout(cols = 3)
-        btn = Button(text = "click here")
-        self.layout.add_widget(btn)
+        self.layout = GridLayout(cols = 1)
+        self.layout.add_widget(WeatherDisplay())
         return self.layout
 
-    
+class WeatherDisplay(GridLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.cols = 1
+
+        self.weather_label = Label(text="Weather: 75°F, Sunny",
+                                    size_hint=(1, 0.1),
+                                    pos_hint={"x": 0, "bottom": 1})
+        self.add_widget(self.weather_label)
+
+
 
 if __name__ == "__main__":
-    SmartMirror().run()
+    SmartMirror().run()    
