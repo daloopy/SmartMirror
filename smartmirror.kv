@@ -1,11 +1,13 @@
 #:kivy 1.11.1
 
+<FloatLayout>:
+    Label:
+        size_hint: 1, 1
 
 
-<WeatherTimeDisplay@GridLayout>:
-    rows: 2
-    padding: 20, 20, 20, 20
-    spacing: 10, 10
+<WeatherTimeDisplay@FloatLayout>:
+    padding: 10, 10, 10, 10
+    spacing: 5, 5
     canvas.before:
         Color:
             rgba: 0, 0, 0, 0
