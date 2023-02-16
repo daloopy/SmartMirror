@@ -9,7 +9,10 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from datetime import datetime
 from weatherapi import *
+from settings import *
 import os
+from kivy.uix.popup import Popup
+
 
 #Builder.load_file('smartmirror.kv')
 
@@ -41,7 +44,7 @@ class WeatherTimeDisplay(FloatLayout):
                                 pos_hint={"right":1},
                                 font_size= 36)
 
-        self.settings_btn.bind(on_press=settingcallback)
+        self.settings_btn.bind(on_press=settingPopUp)
 
         self.add_widget(self.weather_label)
         self.add_widget(self.time_label)
@@ -60,18 +63,11 @@ class WeatherTimeDisplay(FloatLayout):
     def update_weather(self, dt):
         town, temp, condition = getWeather()
         self.weather_label.text = "{}°F  {}".format(temp, condition)
-    
-    
-
 
 
 class WeatherTimeApp(App):
     def build(self):
         return WeatherTimeDisplay()
-
-def settingcallback(instance):
-        print("button pressed")
-        pass
 
 if __name__ == "__main__":
     WeatherTimeApp().run()

@@ -13,4 +13,4 @@ def getWeather(zipcode="47906"):
     return town, temp_f, condition
 
 town, temp, condition = getWeather("47906")
-#print(town, temp, condition)
+
