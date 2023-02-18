@@ -21,15 +21,11 @@ class VirtualKeyboard(VKeyboard):
         # Add the VirtualKeyboard widget to the content of the popup
         self.content = self.virtual_keyboard
 
-
         # Create a label to display the input
         self.label = Label(text='', font_size=30)
         self.add_widget(self.label)
         
         
-
-        
-
     def key_up(self, keyboard, keycode, *args):
         if isinstance(keycode, tuple):
             keycode = keycode[1]
@@ -50,7 +46,3 @@ class VirtualKeyboard(VKeyboard):
         self.label.text = f'{thing}{keycode}'
         pass
     
-    
-
-if __name__ == "__main__":
-    SmartMirror().run()
