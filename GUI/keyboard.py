@@ -7,25 +7,34 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.dropdown import DropDown
 from kivy.uix.vkeyboard import VKeyboard
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.popup import Popup
 
 
-class SmartMirror(App):
-    def build(self):
-        self.layout = GridLayout(cols = 1)
-        self.username = ""
-        keyboard = VKeyboard(on_key_up = self.key_up)
-        self.label = Label(text = "Please enter your name")
-        self.layout.add_widget(self.label)
-        self.layout.add_widget(keyboard)
-        return self.layout
+
+class VirtualKeyboard(VKeyboard):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        # Create a VirtualKeyboard widget
+        self.virtual_keyboard = VKeyboard(on_key_up = self.key_up)
+        self.add_widget(self.virtual_keyboard)
+        # Add the VirtualKeyboard widget to the content of the popup
+        self.content = self.virtual_keyboard
+
+
+        # Create a label to display the input
+        self.label = Label(text='', font_size=30)
+        self.add_widget(self.label)
+        
+        
+
+        
 
     def key_up(self, keyboard, keycode, *args):
         if isinstance(keycode, tuple):
             keycode = keycode[1]
 
         thing = self.label.text 
-        if thing == "Please enter your name" :
-            thing = ""
         
         if keycode == "spacebar":
             keycode = " "
@@ -40,6 +49,8 @@ class SmartMirror(App):
 
         self.label.text = f'{thing}{keycode}'
         pass
+    
+    
 
 if __name__ == "__main__":
     SmartMirror().run()

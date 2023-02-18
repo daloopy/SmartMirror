@@ -2,6 +2,8 @@ from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+from keyboard import *
 
 def settingPopUp(instance):
         layout = GridLayout(cols = 1, padding = 10)
@@ -35,16 +37,22 @@ def changeZipPopUp(instance):
         closeButton = Button(text = "Exit")
   
         layout.add_widget(popupLabel)
-        layout.add_widget(closeButton)       
+        layout.add_widget(closeButton)  
+
+        keyboard = VirtualKeyboard()
+        layout.add_widget(keyboard)     
   
         # Instantiate the modal popup and display
         popup = Popup(title ='Change Zip Code',
                       content = layout)  
         popup.open()   
+
+        
   
         # Attach close button press with popup.dismiss action
         closeButton.bind(on_press = popup.dismiss) 
         pass
+
 
 def changeWiFiPopUp(instance):
         layout = GridLayout(cols = 1, padding = 10)
@@ -63,3 +71,4 @@ def changeWiFiPopUp(instance):
         # Attach close button press with popup.dismiss action
         closeButton.bind(on_press = popup.dismiss) 
         pass
+

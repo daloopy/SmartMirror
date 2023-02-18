@@ -11,13 +11,14 @@ from datetime import datetime
 from weatherapi import *
 from settings import *
 import os
+from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.popup import Popup
 
 
 #Builder.load_file('smartmirror.kv')
 
 
-class WeatherTimeDisplay(FloatLayout):    
+class Home(Screen):    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -65,9 +66,9 @@ class WeatherTimeDisplay(FloatLayout):
         self.weather_label.text = "{}°F  {}".format(temp, condition)
 
 
-class WeatherTimeApp(App):
-    def build(self):
-        return WeatherTimeDisplay()
+# class WeatherTimeApp(App):
+#     def build(self):
+#         return Home()
 
-if __name__ == "__main__":
-    WeatherTimeApp().run()
+# if __name__ == "__main__":
+#     WeatherTimeApp().run()
