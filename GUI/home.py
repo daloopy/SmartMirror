@@ -10,11 +10,12 @@ from kivy.lang import Builder
 from datetime import datetime
 from weatherapi import *
 from settings import *
+from motionsensor import *
 import os
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.popup import Popup
 
-
+inRange = 1
 #Builder.load_file('smartmirror.kv')
 
 
@@ -46,16 +47,22 @@ class Home(Screen):
                                 font_size= 36)
 
         self.settings_btn.bind(on_press=settingPopUp)
+        self.inrange = Label(text="is a user in range?",
+                                size_hint=(0.5, 0.5),
+                                pos_hint={"left": 0.5, "top":0.5},
+                                font_size= 48)
 
         self.add_widget(self.weather_label)
         self.add_widget(self.time_label)
         self.add_widget(self.date_label)
         self.add_widget(self.town_label)
         self.add_widget(self.settings_btn)
+        self.add_widget(self.inrange)
 
         
         Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_interval(self.update_weather, 300) # update every 5 minutes -> max 288 calls in 1 day
+        Clock.schedule_interval(self.update_inRange, 5)
 
     def update_time(self, dt):
         self.time_label.text = datetime.now().strftime("%I:%M %p")
@@ -64,6 +71,16 @@ class Home(Screen):
     def update_weather(self, dt):
         town, temp, condition = getWeather()
         self.weather_label.text = "{}°F  {}".format(temp, condition)
+
+    def update_inRange(self,dt):
+        global inRange
+        #inRange = getRange()
+        if(inRange):
+            self.inrange.text = "In range"
+            #inRange = 0
+        else:
+            self.inrange.text = "Out of range"
+            #inRange = 1
 
 
 # class WeatherTimeApp(App):

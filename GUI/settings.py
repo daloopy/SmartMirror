@@ -4,8 +4,14 @@ from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from keyboard import *
+from functools import partial
+from kivy.core.window import WindowBase
+
+
 
 def settingPopUp(instance):
+        # popup = SettingPopUp()
+        # popup.open()
         layout = GridLayout(cols = 1, padding = 10)
         popupLabel = Label(text = "Click for pop-up")
 
@@ -29,30 +35,31 @@ def settingPopUp(instance):
         closeButton.bind(on_press = popup.dismiss) 
         pass
 
-
 def changeZipPopUp(instance):
-        layout = GridLayout(cols = 1, padding = 10)
-        popupLabel = Label(text = "Please enter new zipcode, or click exit")
+        popup = DigitKeyboardPopUp()
+        popup.open()
 
-        closeButton = Button(text = "Exit")
+        # zipcode = "47906"
+        # layout = GridLayout(cols = 1, padding = 10)
+        # popupLabel = Label(text = "Current Zipcode: {}".format(zipcode))
+        # #keyboard = VirtualKeyboard()
+        # keyboard = WindowBase.request_keyboard(self._keyboard_close, self)
+        # closeButton = Button(text = "Exit")
   
-        layout.add_widget(popupLabel)
-        layout.add_widget(closeButton)  
+        # layout.add_widget(popupLabel)
+        # #layout.add_widget(keyboard)  
+        # layout.add_widget(closeButton)  
 
-        keyboard = VirtualKeyboard()
-        layout.add_widget(keyboard)     
   
-        # Instantiate the modal popup and display
-        popup = Popup(title ='Change Zip Code',
-                      content = layout)  
-        popup.open()   
+        # # Instantiate the modal popup and display
+        # popup = Popup(title ='Change Zip Code',
+        #               content = layout)  
+        # popup.open()   
 
-        
-  
-        # Attach close button press with popup.dismiss action
-        closeButton.bind(on_press = popup.dismiss) 
+
+        # # Attach close button press with popup.dismiss action
+        # closeButton.bind(on_press = popup.dismiss) 
         pass
-
 
 def changeWiFiPopUp(instance):
         layout = GridLayout(cols = 1, padding = 10)
@@ -71,4 +78,11 @@ def changeWiFiPopUp(instance):
         # Attach close button press with popup.dismiss action
         closeButton.bind(on_press = popup.dismiss) 
         pass
+
+class DigitKeyboardPopUp(Popup):
+    def __init__(self, **kwargs):
+        super(Popup, self).__init__(**kwargs)
+        self.vkeyboardlayout = VirtualKeyboardLayout()
+        self.content = self.vkeyboardlayout 
+        self.vkeyboardlayout.virtual_keyboard.pos_hint = { "top": 0, "right": 1 }
 
