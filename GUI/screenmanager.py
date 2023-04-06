@@ -19,13 +19,15 @@ class MyApp(App):
         return sm
     
     def on_start(self):
-        # Schedule a function to check for the global variable every 5 seconds
-        Clock.schedule_interval(self.check_sleep_mode, 5)
+        # Schedule a function to check for the global variable every second
+        Clock.schedule_interval(self.check_sleep_mode, 1)
+        
 
     def check_sleep_mode(self, *args):
         # Check the value of the global variable
+        
         sleepmode = getSleepMode()
-        print("sleepmode =", sleepmode)
+        print("sleep mode value is", sleepmode)
         if sleepmode:
             #sleepmode = False
             # If it's true, switch to the Sleep screen
