@@ -4,13 +4,40 @@ from kivy.clock import Clock
 from home import *
 from kivy.uix.label import Label
 
+global sleepmode
+sleepmode = True
+
+
 
 class MyApp(App):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)        
+
     def build(self):
         sm = ScreenManager()
         sm.add_widget(StartupScreen(name="startup"))
         sm.add_widget(Home(name="Home"))
+        sm.add_widget(SleepScreen(name="Sleep"))
         return sm
+    
+    def on_start(self):
+        global sleepmode
+        # Schedule a function to check for the global variable every second
+        Clock.schedule_interval(self.check_sleep_mode, 5)
+        print(sleepmode)
+
+    def check_sleep_mode(self, *args):
+        # Check the value of the global variable
+        global sleepmode
+        print(sleepmode)
+        if sleepmode:
+            #sleepmode = False
+            # If it's true, switch to the Sleep screen
+            self.root.current = "Sleep"
+        else:
+            #sleepmode = True
+            # Otherwise, switch to the Home screen
+            self.root.current = "Home"
 
 class StartupScreen(Screen):
     def __init__(self, **kwargs):
@@ -24,6 +51,8 @@ class StartupScreen(Screen):
 
     def switch_to_home(self, *args):
         self.manager.current = "Home"
+
+
 
 if __name__ == "__main__":
     MyApp().run()
