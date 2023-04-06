@@ -1,9 +1,7 @@
 import serial
 
-def getRange():
-    ser = serial.Serial('/dev/ttyS0')  # Replace with the correct port for your UART connection
-    ser.baudrate = 9600  # Set the baud rate to match your ESP32
-
-    inRange = ser.readline().decode().strip()  # Read the data from the serial port
-    print(f'inRange: {inRange}')  # Print the data to the console (for testing)
-    # Add code here to update your GUI with the value of inRange       
+def getSleepMode():
+    porta = serial.Serial(port="/dev/ttyS0", baudrate=115200, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS, timeout=1)
+    data = porta.readline()
+    print("The data is", data)
+    return data

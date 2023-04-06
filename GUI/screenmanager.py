@@ -3,9 +3,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.clock import Clock
 from home import *
 from kivy.uix.label import Label
-
-global sleepmode
-sleepmode = True
+from motionsensor import *
 
 
 
@@ -21,15 +19,13 @@ class MyApp(App):
         return sm
     
     def on_start(self):
-        global sleepmode
-        # Schedule a function to check for the global variable every second
+        # Schedule a function to check for the global variable every 5 seconds
         Clock.schedule_interval(self.check_sleep_mode, 5)
-        print(sleepmode)
 
     def check_sleep_mode(self, *args):
         # Check the value of the global variable
-        global sleepmode
-        print(sleepmode)
+        sleepmode = getSleepMode()
+        print("sleepmode =", sleepmode)
         if sleepmode:
             #sleepmode = False
             # If it's true, switch to the Sleep screen
