@@ -13,12 +13,13 @@ class SpotifyPlayer(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         laptopID = "11d9bf2ca1e98be4eafafcf94df81143796be422"
+        piID = "911af2e14d65e7fc48d941256a7e2b351e25749a"
 
         # Initialize the Spotipy client with the access token
         sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
 
         # Set the output device to your device ID
-        sp.start_playback(device_id=laptopID) 
+        sp.start_playback(device_id=piID) 
 
         # Create a button to toggle the playback state
         play_button = Button(text='Play',
@@ -26,7 +27,7 @@ class SpotifyPlayer(GridLayout):
                              pos_hint={"right":1, "top": 0},
                              font_size= 36)
         
-        play_button.bind(on_press=lambda *args: sp.pause_playback() if sp.current_playback()['is_playing'] else sp.start_playback(device_id=laptopID))
+        play_button.bind(on_press=lambda *args: sp.pause_playback() if sp.current_playback()['is_playing'] else sp.start_playback(device_id=piID))
         self.add_widget(play_button)
 
 def searchSpotify(search_str = 'Radiohead'):
@@ -90,5 +91,5 @@ def getDeviceID():
     print(f"Your device ID is: {device_id}")
 
 
-
+#getDeviceID()
 # laptop: 11d9bf2ca1e98be4eafafcf94df81143796be422
