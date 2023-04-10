@@ -12,9 +12,13 @@ from kivy.uix.button import Button
 class SpotifyPlayer(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        laptopID = "11d9bf2ca1e98be4eafafcf94df81143796be422"
 
         # Initialize the Spotipy client with the access token
         sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
+
+        # Set the output device to your device ID
+        sp.start_playback(device_id=laptopID) 
 
         # Create a button to toggle the playback state
         play_button = Button(text='Play',
@@ -22,13 +26,8 @@ class SpotifyPlayer(GridLayout):
                              pos_hint={"right":1, "top": 0},
                              font_size= 36)
         
-        play_button.bind(on_press=lambda *args: sp.pause_playback() if sp.current_playback()['is_playing'] else sp.start_playback())
+        play_button.bind(on_press=lambda *args: sp.pause_playback() if sp.current_playback()['is_playing'] else sp.start_playback(device_id=laptopID))
         self.add_widget(play_button)
-
-def getSearchString():
-    #get the search string from virtual keyboard
-    # return search_str
-    pass
 
 def searchSpotify(search_str = 'Radiohead'):
     sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
@@ -38,12 +37,9 @@ def searchSpotify(search_str = 'Radiohead'):
 def showResults(result):
     pprint(result)
 
-
 def listBirdy():
     birdy_uri = 'spotify:artist:2WX2uTcsvV5OnS0inACecP'
     spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
-
-
 
     results = spotify.artist_albums(birdy_uri, album_type='album')
     albums = results['items']
@@ -82,6 +78,17 @@ def listSavedSongs():
         track = item['track']
         print(idx, track['artists'][0]['name'], " – ", track['name'])   
 
-#result = searchSpotify()
-#showResults(result)
-listSavedSongs()
+def getDeviceID():
+    # Initialize the Spotipy client with the access token
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state'))
+
+    # Get the current playback information, which includes the device ID
+    playback_info = sp.current_playback()
+
+    # Print the device ID
+    device_id = playback_info['device']['id']
+    print(f"Your device ID is: {device_id}")
+
+
+
+# laptop: 11d9bf2ca1e98be4eafafcf94df81143796be422
