@@ -11,6 +11,7 @@ from datetime import datetime
 from weatherapi import *
 from settings import *
 from motionsensor import *
+from spotify import *
 import os
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.popup import Popup
@@ -47,17 +48,17 @@ class Home(Screen):
                                 font_size= 36)
 
         self.settings_btn.bind(on_press=settingPopUp)
-        self.inrange = Label(text="is a user in range?",
-                                size_hint=(0.5, 0.5),
-                                pos_hint={"left": 0.5, "top":0.5},
-                                font_size= 48)
+
+        self.spotify_player = SpotifyPlayer()
+        
+
 
         self.add_widget(self.weather_label)
         self.add_widget(self.time_label)
         self.add_widget(self.date_label)
         self.add_widget(self.town_label)
         self.add_widget(self.settings_btn)
-        self.add_widget(self.inrange)
+        self.add_widget(self.spotify_player)
 
         
         Clock.schedule_interval(self.update_time, 1)

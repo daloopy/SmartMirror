@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.clock import Clock
 from home import *
 from kivy.uix.label import Label
-from motionsensor import *
+#from motionsensor import *
 
 
 
@@ -26,7 +26,7 @@ class MyApp(App):
     def check_sleep_mode(self, *args):
         # Check the value of the global variable
         
-        sleepmode = getSleepMode()
+        sleepmode = False #getSleepMode()
         print("sleep mode value is", sleepmode)
         if sleepmode:
             #sleepmode = False

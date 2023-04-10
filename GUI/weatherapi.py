@@ -3,7 +3,7 @@ import requests
 import json
 
 def getWeather(zipcode="47906"):
-    token= "b2d5146e59af44d2b4d153350231402" #os.getenv("WEATHERAPI_TOKEN")
+    token= os.getenv("WEATHERAPI_TOKEN")
     url = "http://api.weatherapi.com/v1/current.json?key={}&q={}".format(token, zipcode)
     response = requests.get(url)
     data = json.loads(response.text)
