@@ -89,11 +89,12 @@ class SpotifyPlayer(GridLayout):
         self.song.text = self.get_current_song()
 
 def getDeviceID():
-    # Initialize the Spotipy client with the access token
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state'))
-
-    # Get the current playback information, which includes the device ID
     playback_info = sp.current_playback()
+
+    if playback_info is None:
+        print("\n\n****\n** No device is currently playing. Please start playing music on this device, then rerun. Otherwise, buttons won't work. **\n****\n\n")
+        return None
 
     # Print the device ID
     device_id = playback_info['device']['id']
