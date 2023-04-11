@@ -16,7 +16,6 @@ class MyApp(App):
         sm = ScreenManager()
         sm.add_widget(StartupScreen(name="startup"))
         sm.add_widget(Home(name="Home"))
-        #sm.add_widget(SleepScreen(name="Sleep"))
         return sm
     
     def on_start(self, time=10):
@@ -30,12 +29,10 @@ class MyApp(App):
         sleepmode = getSleepMode()
         print("sleep mode value is", sleepmode)
         if (sleepmode):
-            #sleepmode = False
             # If it's true, switch to the Sleep screen
             subprocess.call("xset dpms force off", shell=True)
             self.on_start(1)
         else:
-            #sleepmode = True
             # Otherwise, switch to the Home screen
             subprocess.call("xset dpms force on", shell=True)
             self.on_start()

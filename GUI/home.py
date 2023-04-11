@@ -16,9 +16,6 @@ import os
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.popup import Popup
 
-inRange = 1
-#Builder.load_file('smartmirror.kv')
-
 
 class Home(Screen):    
     def __init__(self, **kwargs):
@@ -64,7 +61,6 @@ class Home(Screen):
         
         Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_interval(self.update_weather, 300) # update every 5 minutes -> max 288 calls in 1 day
-        #Clock.schedule_interval(self.update_inRange, 5)
 
     def update_time(self, dt):
         self.time_label.text = datetime.now().strftime("%I:%M %p")
@@ -74,16 +70,5 @@ class Home(Screen):
         town, temp, condition = getWeather()
         self.weather_label.text = "{}°F  {}".format(temp, condition)
 
-class SleepScreen(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.sleep = Label(text="Sleep Mode",
-                             font_size=48)
-        self.add_widget(self.sleep)
 
-    def switch_to_sleep(self, *args):
-        self.manager.current = "Sleep"
-
-    def switch_to_home(self, *args):
-        self.manager.current = "Home"
 
