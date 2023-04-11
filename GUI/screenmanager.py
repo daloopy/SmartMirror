@@ -29,7 +29,7 @@ class MyApp(App):
         
         sleepmode = getSleepMode()
         print("sleep mode value is", sleepmode)
-        if sleepmode:
+        if (sleepmode):
             #sleepmode = False
             # If it's true, switch to the Sleep screen
             subprocess.call("xset dpms force off", shell=True)
@@ -38,7 +38,7 @@ class MyApp(App):
             #sleepmode = True
             # Otherwise, switch to the Home screen
             subprocess.call("xset dpms force on", shell=True)
-            
+            self.on_start()
 
 class StartupScreen(Screen):
     def __init__(self, **kwargs):
