@@ -20,6 +20,7 @@ from kivy.uix.popup import Popup
 class Home(Screen):    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.layout = GridLayout(rows = 2, cols = 3)
 
         town, temp, condition = getWeather()
         self.date_label = Label(text=datetime.now().strftime("%B %d, %Y"),
@@ -46,18 +47,16 @@ class Home(Screen):
 
         self.settings_btn.bind(on_press=settingPopUp)
 
-        #self.spotify_player = SpotifyPlayer()
+        self.spotify_player = SpotifyPlayer()
         
+        self.layout.add_widget(self.weather_label)
+        self.layout.add_widget(self.time_label)
+        self.layout.add_widget(self.date_label)
+        self.layout.add_widget(self.town_label)
+        self.layout.add_widget(self.settings_btn)
+        self.layout.add_widget(self.spotify_player)
 
-
-        self.add_widget(self.weather_label)
-        self.add_widget(self.time_label)
-        self.add_widget(self.date_label)
-        self.add_widget(self.town_label)
-        self.add_widget(self.settings_btn)
-        #self.add_widget(self.spotify_player)
-
-
+        self.add_widget(self.layout) # add the GridLayout to the screen
         
         Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_interval(self.update_weather, 300) # update every 5 minutes -> max 288 calls in 1 day

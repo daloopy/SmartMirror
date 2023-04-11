@@ -20,22 +20,20 @@ class MyApp(App):
     
     def on_start(self, time=10):
         # Schedule a function to check for the global variable every second
-        Clock.schedule_interval(self.check_sleep_mode, time)
+        #Clock.schedule_interval(self.check_sleep_mode, time)
+        pass
         
 
     def check_sleep_mode(self, *args):
         # Check the value of the global variable
-        
         sleepmode = getSleepMode()
         print("sleep mode value is", sleepmode)
         if (sleepmode):
-            # If it's true, switch to the Sleep screen
             subprocess.call("xset dpms force off", shell=True)
-            self.on_start(1)
+            self.on_start(time=1)
         else:
-            # Otherwise, switch to the Home screen
             subprocess.call("xset dpms force on", shell=True)
-            self.on_start()
+            self.on_start(time=10)
 
 class StartupScreen(Screen):
     def __init__(self, **kwargs):

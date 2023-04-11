@@ -5,6 +5,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from pprint import pprint
 from time import sleep
 from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 
@@ -12,10 +13,9 @@ from kivy.uix.button import Button
 class SpotifyPlayer(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-        laptopID = "11d9bf2ca1e98be4eafafcf94df81143796be422"
-        piID = "911af2e14d65e7fc48d941256a7e2b351e25749a"
-        self.spID = laptopID
+        self.cols = 2
+        
+        self.spID = getDeviceID()
 
         # Initialize the Spotipy client with the access token
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
@@ -41,9 +41,7 @@ class SpotifyPlayer(GridLayout):
         skip_button.bind(on_press=lambda *args: self.skip_track())
         self.add_widget(skip_button)
 
-        # Set the size and position of the GridLayout
-        self.size_hint = (1, 0.8)
-        self.pos_hint = {"center_x": 0.5, "center_y": 0.5}
+        
 
     def skip_track(self):
         self.sp.next_track(device_id=self.spID)
@@ -109,6 +107,7 @@ def getDeviceID():
     # Print the device ID
     device_id = playback_info['device']['id']
     print(f"Your device ID is: {device_id}")
+    return device_id
 
 
 #getDeviceID()
