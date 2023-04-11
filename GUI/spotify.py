@@ -8,12 +8,17 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.clock import Clock
+
+
 
 
 class SpotifyPlayer(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.cols = 2
+        self.rows = 2
         
         self.spID = getDeviceID()
 
@@ -24,30 +29,56 @@ class SpotifyPlayer(GridLayout):
         self.sp.start_playback(device_id=self.spID) 
 
         # Create a button to toggle the playback state
-        play_button = Button(text='Play',
+        self.play_button = Button(text='Play',
                             size_hint=(0.1, 0.1),
                             pos_hint={"right":1, "top": 0},
                             font_size= 36)
 
         # Create a button to skip to the next track
-        skip_button = Button(text='Skip',
+        self.skip_button = Button(text='Skip',
                             size_hint=(0.1, 0.1),
                             pos_hint={"right":0.8, "top": 0},
                             font_size= 36)
         
-        play_button.bind(on_press=lambda *args: self.sp.pause_playback() if self.sp.current_playback()['is_playing'] else self.sp.start_playback(device_id=self.spID))
-        self.add_widget(play_button)
+        self.song = Label(text="Now Listening...")
+        
+        self.play_button.bind(on_press=lambda *args: self.toggle_play())
+        self.add_widget(self.play_button)
 
-        skip_button.bind(on_press=lambda *args: self.skip_track())
-        self.add_widget(skip_button)
+        self.skip_button.bind(on_press=lambda *args: self.skip_track())
+        self.add_widget(self.skip_button)
+
+        self.add_widget(self.song)
+        Clock.schedule_once(self.update_song, 1)
 
         
-
     def skip_track(self):
         self.sp.next_track(device_id=self.spID)
+        Clock.schedule_once(self.update_song, 1)
+
+    def toggle_play(self):
+        if self.sp.current_playback()['is_playing']:
+            self.play_button.text = "Paused"
+            self.sp.pause_playback()
+        else:
+            self.play_button.text = "Play"
+            self.sp.start_playback(device_id=self.spID)
+
+    def get_current_song(self):
+        current_playback = self.sp.current_playback()
+        if current_playback is None:
+            return "Now Listening..."
+        song_name = current_playback['item']['name']
+        artist_name = current_playback['item']['artists'][0]['name']
+        return f"{song_name} - {artist_name}"
+
+    def update_song(self, dt):
+        self.song.text = self.get_current_song()
 
 
 
+
+ ############## EXAMPLE FUNCTIONS #########################
 def searchSpotify(search_str = 'Radiohead'):
     sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
     result = sp.search(search_str)
