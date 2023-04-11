@@ -14,6 +14,3 @@ def getSleepMode():
     
 
 
-    #inRange = ser.readline().decode().strip()  # Read the data from the serial port
-    #print(f'inRange: {inRange}')  # Print the data to the console (for testing)
-    # Add code here to update your GUI with the value of inRange       

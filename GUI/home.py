@@ -60,6 +60,7 @@ class Home(Screen):
         self.add_widget(self.settings_btn)
         #self.add_widget(self.spotify_player)
 
+
         
         Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_interval(self.update_weather, 300) # update every 5 minutes -> max 288 calls in 1 day

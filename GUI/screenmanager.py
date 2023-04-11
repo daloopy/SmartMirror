@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.clock import Clock
 from home import *
 from kivy.uix.label import Label
+import subprocess
 #from motionsensor import *
 
 
@@ -15,12 +16,12 @@ class MyApp(App):
         sm = ScreenManager()
         sm.add_widget(StartupScreen(name="startup"))
         sm.add_widget(Home(name="Home"))
-        sm.add_widget(SleepScreen(name="Sleep"))
+        #sm.add_widget(SleepScreen(name="Sleep"))
         return sm
     
-    def on_start(self):
+    def on_start(self, time=10):
         # Schedule a function to check for the global variable every second
-        Clock.schedule_interval(self.check_sleep_mode, 10)
+        Clock.schedule_interval(self.check_sleep_mode, time)
         
 
     def check_sleep_mode(self, *args):
@@ -31,11 +32,13 @@ class MyApp(App):
         if sleepmode:
             #sleepmode = False
             # If it's true, switch to the Sleep screen
-            self.root.current = "Sleep"
+            subprocess.call("xset dpms force off", shell=True)
+            self.on_start(1)
         else:
             #sleepmode = True
             # Otherwise, switch to the Home screen
-            self.root.current = "Home"
+            subprocess.call("xset dpms force on", shell=True)
+            
 
 class StartupScreen(Screen):
     def __init__(self, **kwargs):
