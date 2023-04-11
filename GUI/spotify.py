@@ -21,7 +21,8 @@ class SpotifyPlayer(GridLayout):
         # Initialize the Spotipy client with the access token
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
         # Set the output device to the current playing device 
-        self.spID = getDeviceID()
+        self.spID = "11d9bf2ca1e98be4eafafcf94df81143796be422" #getDeviceID()
+        #self.sp.transfer_playback(self.spID, force_play=True)
 
         # Create buttons
         self.play_button = Button(text='',
@@ -152,3 +153,4 @@ def listSavedSongs():
         track = item['track']
         print(idx, track['artists'][0]['name'], " – ", track['name'])   
 
+#getDeviceID()
