@@ -5,7 +5,7 @@ def getSleepMode():
     data = porta.readline().decode()
     print(" ")
     print("The data is", data) # still only need bit
-    if(data == "GPIO4: 0 \n"):
+    if(data == "GPIO4_value: 0 \n"):
         sleepmode = 1
     else:
         sleepmode = 0

@@ -20,13 +20,13 @@ class MyApp(App):
     
     def on_start(self):
         # Schedule a function to check for the global variable every second
-        Clock.schedule_interval(self.check_sleep_mode, 1)
+        Clock.schedule_interval(self.check_sleep_mode, 10)
         
 
     def check_sleep_mode(self, *args):
         # Check the value of the global variable
         
-        sleepmode = False #getSleepMode()
+        sleepmode = getSleepMode()
         print("sleep mode value is", sleepmode)
         if sleepmode:
             #sleepmode = False
