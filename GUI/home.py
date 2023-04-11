@@ -49,7 +49,7 @@ class Home(Screen):
 
         self.settings_btn.bind(on_press=settingPopUp)
 
-        self.spotify_player = SpotifyPlayer()
+        #self.spotify_player = SpotifyPlayer()
         
 
 
@@ -58,7 +58,7 @@ class Home(Screen):
         self.add_widget(self.date_label)
         self.add_widget(self.town_label)
         self.add_widget(self.settings_btn)
-        self.add_widget(self.spotify_player)
+        #self.add_widget(self.spotify_player, row = 1)
 
         
         Clock.schedule_interval(self.update_time, 1)
