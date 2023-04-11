@@ -22,7 +22,6 @@ class SpotifyPlayer(GridLayout):
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
         # Set the output device to the current playing device 
         self.spID = getDeviceID()
-        self.sp.start_playback(device_id=self.spID) 
 
         # Create buttons
         self.play_button = Button(text='',
@@ -72,10 +71,10 @@ class SpotifyPlayer(GridLayout):
     def toggle_play(self):
         if self.sp.current_playback()['is_playing']:
             self.sp.pause_playback()
-            self.play_button.background_normal = 'img/pause.png'
+            self.play_button.background_normal = 'img/play.png'
         else:
             self.sp.start_playback(device_id=self.spID)
-            self.play_button.background_normal = 'img/play.png'
+            self.play_button.background_normal = 'img/pause.png'
             
 
     def get_current_song(self):
