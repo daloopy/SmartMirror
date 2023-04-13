@@ -15,35 +15,48 @@ from spotify import *
 import os
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.popup import Popup
+from kivymd.uix.screen import MDScreen
+from kivymd.icon_definitions import md_icons
+from kivymd.uix.screenmanager import MDScreenManager
+from kivymd.uix.label import MDLabel
+from kivymd.font_definitions import theme_font_styles
+from kivymd.uix.circularlayout import MDCircularLayout
+#from kivymd.uix.girdlayout import MDGridLayout
+from kivymd.uix.floatlayout import MDFloatLayout
 
 
-class Home(Screen):    
+class Home(MDScreen):    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.layout = GridLayout(rows = 2, cols = 3)
+        self.layout = MDFloatLayout(pos = self.pos, size = self.size, radius = [25,0,0,0])
 
         town, temp, condition = getWeather()
-        self.date_label = Label(text=datetime.now().strftime("%B %d, %Y"),
+        self.date_label = MDLabel(text=datetime.now().strftime("%B %d, %Y"),
                                 size_hint=(0.5, 0.5),
                                 pos_hint={"left": 0, "top":1},
-                                font_size= 48)
-        self.time_label = Label(text=datetime.now().strftime("%I:%M"),
+                                font_size= 48, font_style = "H3")
+        self.time_label = MDLabel(text=datetime.now().strftime("%I:%M"),
                                 size_hint=(0.5, 0.5),
                                 pos_hint={"left": 0, "top":0.90},
-                                font_size= 72)  
-        self.weather_label = Label(text="{}°F  {}".format(temp, condition),
+                                font_size= 72, font_style = "H3")  
+        self.weather_label = MDLabel(text="{}°F  {}".format(temp, condition),
                                     size_hint=(0.5, 0.5),
                                     pos_hint={"left": 0, "top":0.80},
                                     font_size= 48)
-        self.town_label = Label(text="{}".format(town),
+        self.town_label = MDLabel(text="{}".format(town),
                                     size_hint=(0.5, 0.5),
                                     pos_hint={"left": 0, "top":0.70},
                                     font_size= 48)
         
-        self.settings_btn = Button(text="settings",
-                                size_hint=(0.1, 0.1),
-                                pos_hint={"right":1},
-                                font_size= 36)
+        self.settings_btn = MDFloatingActionButton(icon="cog",
+                                                theme_icon_color="Custom", size_hint = (0.1, 0.1),
+                                                pos_hint={"right":1}, icon_size = "64")
+        
+        
+        #Button(text="settings",
+        #size_hint=(0.1, 0.1),
+        #pos_hint={"right":1},
+        #font_size= 36)
 
         self.settings_btn.bind(on_press=settingPopUp)
 
@@ -58,7 +71,7 @@ class Home(Screen):
 
         self.add_widget(self.layout) # add the GridLayout to the screen
         
-        Clock.schedule_interval(self.update_time, 1)
+        Clock.schedule_interval(self.update_time, 60)
         Clock.schedule_interval(self.update_weather, 300) # update every 5 minutes -> max 288 calls in 1 day
 
     def update_time(self, dt):

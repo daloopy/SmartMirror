@@ -4,11 +4,13 @@ from kivy.clock import Clock
 from home import *
 from kivy.uix.label import Label
 import subprocess
+from kivymd.app import MDApp
+from kivymd.uix.button import *
 #from motionsensor import *
 
 
 
-class MyApp(App):
+class MyApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)        
 
@@ -16,6 +18,10 @@ class MyApp(App):
         sm = ScreenManager()
         sm.add_widget(StartupScreen(name="startup"))
         sm.add_widget(Home(name="Home"))
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Gray"
+        self.theme_cls.material_style = "M3"
+        
         return sm
     
     def on_start(self, time=10):
