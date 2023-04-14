@@ -36,29 +36,24 @@ def settingPopUp(instance):
         pass
 
 def changeZipPopUp(instance):
-        popup = DigitKeyboardPopUp()
-        popup.open()
-
-        # zipcode = "47906"
-        # layout = GridLayout(cols = 1, padding = 10)
-        # popupLabel = Label(text = "Current Zipcode: {}".format(zipcode))
-        # #keyboard = VirtualKeyboard()
-        # keyboard = WindowBase.request_keyboard(self._keyboard_close, self)
-        # closeButton = Button(text = "Exit")
+        zipcode = "47906"
+        layout = GridLayout(cols = 1, rows = 3, padding = 10)
+        #popupLabel = Label(text = "Current Zipcode: {}".format(zipcode))
+        closeButton = Button(text = "Exit")
+        keyboard = VirtualKeyboard(return_func=updateZip)
   
-        # layout.add_widget(popupLabel)
-        # #layout.add_widget(keyboard)  
-        # layout.add_widget(closeButton)  
+        #layout.add_widget(popupLabel, index = 2)
+        layout.add_widget(keyboard, index = 1)
+        layout.add_widget(closeButton, index = 0)  
 
   
-        # # Instantiate the modal popup and display
-        # popup = Popup(title ='Change Zip Code',
-        #               content = layout)  
-        # popup.open()   
-
+        # Instantiate the modal popup and display
+        popup = Popup(title ='Change Zip Code',
+                      content = layout)  
+        popup.open()   
 
         # # Attach close button press with popup.dismiss action
-        # closeButton.bind(on_press = popup.dismiss) 
+        closeButton.bind(on_press = popup.dismiss) 
         pass
 
 def changeWiFiPopUp(instance):
@@ -78,6 +73,10 @@ def changeWiFiPopUp(instance):
         # Attach close button press with popup.dismiss action
         closeButton.bind(on_press = popup.dismiss) 
         pass
+    
+def updateZip(input):
+    print("From updateZip: ", input)
+    
 
 class DigitKeyboardPopUp(Popup):
     def __init__(self, **kwargs):
