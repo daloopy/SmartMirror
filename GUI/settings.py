@@ -57,7 +57,7 @@ class updateZipPopUp(Popup):
         self.closeButton = Button(text = "Exit")
         self.closeButton.bind(on_press = self.dismiss)
         
-        self.keyboard = VirtualKeyboard(return_func=self.updateZip)
+        self.keyboard = DigitKeyboard(return_func=self.updateZip)
   
         self.layout.add_widget(self.keyboard, index = 1)
         self.layout.add_widget(self.closeButton, index = 0)   
