@@ -16,18 +16,18 @@ from kivymd.uix.button import *
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.floatlayout import MDFloatLayout
+from kivymd.uix.responsivelayout import MDResponsiveLayout
 import requests
+from kivy.core.window import Window
 
 class SpotifyPlayer(MDFloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        #self.cols = 1
-        #self.rows = 2
         
         # Initialize the Spotipy client with the access token
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
         # Set the output device to the current playing device 
-        self.spID = "11d9bf2ca1e98be4eafafcf94df81143796be422" #getDeviceID()
+        self.spID = getDeviceID() # "11d9bf2ca1e98be4eafafcf94df81143796be422"
         #self.sp.transfer_playback(self.spID, force_play=True)
 
         # Create buttons
@@ -47,14 +47,14 @@ class SpotifyPlayer(MDFloatLayout):
                           size_hint = (1,1))
         self.song_layout.add_widget(self.song)
         self.add_widget(self.song_layout)
-        Clock.schedule_once(self.update_song, 2)
+        
         
         # Create album cover image
         self.download_album_image()
-        #elf.album_cover_url = self.get_album_image()
-        self.album_image = Image(source='image.jpg', pos = (500,200), nocache=True)
+        self.album_image = Image(source='image.jpg', pos = (500,200), nocache=True, size=(100,100), allow_stretch=False, keep_ratio=True)
         self.song_layout.add_widget(self.album_image)
-
+        Clock.schedule_once(self.update_song, 1)
+        
         # Make button control panel
         self.control_layout = MDFloatLayout(radius = [25,25,0,0])
         self.add_widget(self.control_layout)
@@ -97,25 +97,16 @@ class SpotifyPlayer(MDFloatLayout):
 
     def update_song(self, dt):
         self.song.text = self.get_current_song()
-        
         self.download_album_image()
         self.update_image()
-        #Clock.schedule_once(self.update_image, 3)
         
     def update_image(self):
-        #self.album_image.source=''
         self.album_image.reload()
-
-        self.album_image.source='image.jpg'
-        #self.album_image.reload()
-        #self.album_image.nocache=True
-        
         
     def get_album_image(self):
         current_playback = self.sp.current_playback()
         album_cover_url = current_playback['item']['album']['images'][0]['url']
         nocache_url = album_cover_url + "?cache={cache_buster}" + "&size=320x320"
-        #print(nocache_url)
         return nocache_url
         
     def download_album_image(self):
