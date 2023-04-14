@@ -36,52 +36,63 @@ def settingPopUp(instance):
         pass
 
 def changeZipPopUp(instance):
-        zipcode = "47906"
-        layout = GridLayout(cols = 1, rows = 3, padding = 10)
-        #popupLabel = Label(text = "Current Zipcode: {}".format(zipcode))
-        closeButton = Button(text = "Exit")
-        keyboard = VirtualKeyboard(return_func=updateZip)
-  
-        #layout.add_widget(popupLabel, index = 2)
-        layout.add_widget(keyboard, index = 1)
-        layout.add_widget(closeButton, index = 0)  
-
-  
-        # Instantiate the modal popup and display
-        popup = Popup(title ='Change Zip Code',
-                      content = layout)  
-        popup.open()   
-
-        # # Attach close button press with popup.dismiss action
-        closeButton.bind(on_press = popup.dismiss) 
+        popup = updateZipPopUp()
+        popup.open()
         pass
 
 def changeWiFiPopUp(instance):
-        layout = GridLayout(cols = 1, padding = 10)
-        popupLabel = Label(text = "Please enter new WiFi, or click exit")
-
-        closeButton = Button(text = "Exit")
-  
-        layout.add_widget(popupLabel)
-        layout.add_widget(closeButton)       
-  
-        # Instantiate the modal popup and display
-        popup = Popup(title ='Change WiFi',
-                      content = layout)  
-        popup.open()   
-  
-        # Attach close button press with popup.dismiss action
-        closeButton.bind(on_press = popup.dismiss) 
+        popup = updateWifiPopUp()
+        popup.open()
         pass
     
-def updateZip(input):
-    print("From updateZip: ", input)
-    
-
-class DigitKeyboardPopUp(Popup):
-    def __init__(self, **kwargs):
-        super(Popup, self).__init__(**kwargs)
-        self.vkeyboardlayout = VirtualKeyboardLayout()
-        self.content = self.vkeyboardlayout 
-        self.vkeyboardlayout.virtual_keyboard.pos_hint = { "top": 0, "right": 1 }
+class updateZipPopUp(Popup):
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
+        
+        self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
+        self.zipcode = "47906"
+        self.title = "Change Zip Code"
+        
+        
+        self.closeButton = Button(text = "Exit")
+        self.closeButton.bind(on_press = self.dismiss)
+        
+        self.keyboard = VirtualKeyboard(return_func=self.updateZip)
+  
+        self.layout.add_widget(self.keyboard, index = 1)
+        self.layout.add_widget(self.closeButton, index = 0)   
+        
+        self.content = self.layout
+        self.open()
+        pass
+        
+    def updateZip(self, input):
+        print("From updateZip: ", input)
+        self.dismiss()
+       
+       
+class updateWifiPopUp(Popup):
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
+        
+        self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
+        self.wifi = "47906"
+        self.title = "Change wifi"
+        
+        
+        self.closeButton = Button(text = "Exit")
+        self.closeButton.bind(on_press = self.dismiss)
+        
+        self.keyboard = VirtualKeyboard(return_func=self.updateWifi)
+  
+        self.layout.add_widget(self.keyboard, index = 1)
+        self.layout.add_widget(self.closeButton, index = 0)   
+        
+        self.content = self.layout
+        self.open()
+        pass
+        
+    def updateWifi(self, input):
+        print("From updateWifi: ", input)
+        self.dismiss()
 
