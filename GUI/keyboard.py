@@ -11,15 +11,20 @@ from kivy.uix.popup import Popup
 
 
 
-class VirtualKeyboard(VKeyboard):
-    def __init__(self, **kwargs):
+class VirtualKeyboard(GridLayout):
+    def __init__(self, return_func=None, **kwargs):
         super().__init__(**kwargs)
+        self.return_func = return_func
+        self.cols = 1
+        self.rows = 2
 
         # Create a VirtualKeyboard widget
         self.virtual_keyboard = VKeyboard(on_key_up = self.key_up)
-        self.add_widget(self.virtual_keyboard)
-        self.text = Label(text='hi')
-        self.add_widget(self.text)
+        self.add_widget(self.virtual_keyboard, index = 1)
+        
+        # create label that will be updated
+        self.input = Label(text='Enter new zipcode: ')
+        self.add_widget(self.input, index = 0)
         # Add the VirtualKeyboard widget to the content of the popup
         # Create a label to display the input        
         
@@ -28,10 +33,11 @@ class VirtualKeyboard(VKeyboard):
         if isinstance(keycode, tuple):
             keycode = keycode[1]
 
-        if not label:
-            return
-
-        thing = label.text 
+        thing = self.input.text
+        
+        if (thing == "Enter new zipcode: "):
+            thing = ""
+        
         print(thing)
         
         if keycode == "spacebar":
@@ -41,11 +47,13 @@ class VirtualKeyboard(VKeyboard):
             keycode = ""
         elif keycode == "enter" or keycode == "escape":
             keycode = ""
+            if(self.return_func is not None):
+                self.return_func(self.input.text)
             #self.username = f'{thing}'
             #self.layout.remove_widget(keyboard)
             #submit
 
-        label.text = f'{thing}{keycode}'
+        self.input.text = f'{thing}{keycode}'
         pass
     
 
