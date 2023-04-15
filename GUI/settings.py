@@ -21,11 +21,15 @@ def settingPopUp(instance):
         changeWiFi = Button(text = "Change WiFi")
         changeWiFi.bind(on_press=changeWiFiPopUp)
         closeButton = Button(text = "Exit Settings")
+        changeUser = Button(text = "Change Name")
+        changeUser.bind(on_press=changeUserPopUp)
   
         layout.add_widget(popupLabel)
         layout.add_widget(changeZip)
         layout.add_widget(changeWiFi)
-        layout.add_widget(closeButton)       
+        layout.add_widget(changeUser) 
+        layout.add_widget(closeButton) 
+             
   
         # Instantiate the modal popup and display
         popup = Popup(title ='Settings',
@@ -45,6 +49,11 @@ def changeWiFiPopUp(instance):
         popup = updateWifiPopUp()
         popup.open()
         pass
+
+def changeUserPopUp(instance):
+     popup = updateUserPopUp()
+     popup.open()
+     pass
     
 class updateZipPopUp(Popup):
     def __init__(self,**kwargs):
@@ -100,3 +109,28 @@ class updateWifiPopUp(Popup):
         user.set_user_wifi_name(input)
         self.dismiss()
 
+class updateUserPopUp(Popup):
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
+        
+        self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
+        self.title = "Change Name"
+        
+        
+        self.closeButton = Button(text = "Exit")
+        self.closeButton.bind(on_press = self.dismiss)
+        
+        self.keyboard = VirtualKeyboard(return_func=self.updateWifi)
+  
+        self.layout.add_widget(self.keyboard, index = 1)
+        self.layout.add_widget(self.closeButton, index = 0)   
+        
+        self.content = self.layout
+        self.open()
+        pass
+        
+    def updateWifi(self, input):
+        print("From updateUser: ", input)
+        user = User()
+        user.set_user_name(input)
+        self.dismiss()

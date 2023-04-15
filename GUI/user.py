@@ -53,11 +53,11 @@ class User:
 		wifi_password = self.user["network_password"] 
 		return wifi_password
 
-	def set_username(self, username):
+	def set_user_name(self, username):
 		self.user["username"] = username
 		self.write_user()
 
-	def get_username(self):
+	def get_user_name(self):
 		self.get_user()
 		username = self.user["username"] 
 		return username
