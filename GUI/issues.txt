@@ -7,6 +7,10 @@ virtual keyboard keys "shift", "capslock", "tab" need to be converted to actuall
 create 2 inputs for wifi name and password
 maybe get local networks then prompt password?
 
+make it full screen when run
+
+error handling for spotify. should force current (GUI) device to play music.
+
 ideas:
 
 - quotes of the day
