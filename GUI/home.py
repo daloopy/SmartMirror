@@ -34,7 +34,7 @@ class Home(MDScreen):
         self.date_label = MDLabel(text=datetime.now().strftime("%B %d, %Y"),
                                 size_hint=(0.5, 0.5),
                                 pos_hint={"left": 0, "top":1},
-                                font_size= 48, font_style = "H3")
+                                font_size= 48, font_style = "H4")
         self.time_label = MDLabel(text=datetime.now().strftime("%I:%M"),
                                 size_hint=(0.5, 0.5),
                                 pos_hint={"left": 0, "top":0.90},
@@ -42,11 +42,11 @@ class Home(MDScreen):
         self.weather_label = MDLabel(text="{}°F  {}".format(temp, condition),
                                     size_hint=(0.5, 0.5),
                                     pos_hint={"left": 0, "top":0.80},
-                                    font_size= 48)
+                                    font_size= 48, font_style = "H4")
         self.town_label = MDLabel(text="{}".format(town),
                                     size_hint=(0.5, 0.5),
                                     pos_hint={"left": 0, "top":0.70},
-                                    font_size= 48)
+                                    font_size= 48, font_style = "H4")
         
         self.settings_btn = MDFloatingActionButton(icon="cog",
                                                 theme_icon_color="Custom", size_hint = (0.1, 0.1),
@@ -71,8 +71,8 @@ class Home(MDScreen):
 
         self.add_widget(self.layout) # add the GridLayout to the screen
         
-        Clock.schedule_interval(self.update_time, 60)
-        Clock.schedule_interval(self.update_weather, 300) # update every 5 minutes -> max 288 calls in 1 day
+        Clock.schedule_interval(self.update_time, 30)
+        Clock.schedule_interval(self.update_weather, 120) # update every 5 minutes -> max 288 calls in 1 day
 
     def update_time(self, dt):
         self.time_label.text = datetime.now().strftime("%I:%M %p")
@@ -81,6 +81,7 @@ class Home(MDScreen):
     def update_weather(self, dt):
         town, temp, condition = getWeather()
         self.weather_label.text = "{}°F  {}".format(temp, condition)
+        self.town_label.text = "{}".format(town)
 
 
 

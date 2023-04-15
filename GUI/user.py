@@ -41,7 +41,8 @@ class User:
 
 	def get_user_wifi_name(self):
 		self.get_user()
-		wifi_name = self.user["network_name"] 
+		wifi_name = self.user["network_name"]
+		return wifi_name 
 		
 	def set_user_wifi_password(self, wifi_password):
 		self.user["network_password"] = wifi_password
@@ -50,4 +51,14 @@ class User:
 	def get_user_wifi_password(self):
 		self.get_user()
 		wifi_password = self.user["network_password"] 
+		return wifi_password
+
+	def set_username(self, username):
+		self.user["username"] = username
+		self.write_user()
+
+	def get_username(self):
+		self.get_user()
+		username = self.user["username"] 
+		return username
 		

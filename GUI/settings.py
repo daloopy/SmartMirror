@@ -71,7 +71,8 @@ class updateZipPopUp(Popup):
         user.set_user_zipcode(input)
         #### TO DO: UPDATE WEATHER ON HOME SCREEN (it will update automatically every 5 mins)
         self.dismiss()
-       
+
+    
        
 class updateWifiPopUp(Popup):
     def __init__(self,**kwargs):

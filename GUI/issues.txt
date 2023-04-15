@@ -1,0 +1,8 @@
+when the songs arent skipped, the song name and image aren't updated. theyre only updated on skips and rewinds.
+
+regenerate weatherapi token
+
+
+ideas:
+
+- quotes of the day
