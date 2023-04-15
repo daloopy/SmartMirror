@@ -4,6 +4,9 @@ regenerate weatherapi token
 
 virtual keyboard keys "shift", "capslock", "tab" need to be converted to actually shift, caps, tab, etc.
 
+create 2 inputs for wifi name and password
+maybe get local networks then prompt password?
+
 ideas:
 
 - quotes of the day
