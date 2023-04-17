@@ -60,14 +60,14 @@ class Home(MDScreen):
 
         self.settings_btn.bind(on_press=settingPopUp)
 
-        #self.spotify_player = SpotifyPlayer()
+        self.spotify_player = SpotifyPlayer()
         
         self.layout.add_widget(self.weather_label)
         self.layout.add_widget(self.time_label)
         self.layout.add_widget(self.date_label)
         self.layout.add_widget(self.town_label)
         self.layout.add_widget(self.settings_btn)
-        #self.layout.add_widget(self.spotify_player)
+        self.layout.add_widget(self.spotify_player)
 
         self.add_widget(self.layout) # add the GridLayout to the screen
         

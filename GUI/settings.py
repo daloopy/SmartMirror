@@ -6,6 +6,7 @@ from kivy.uix.textinput import TextInput
 from keyboard import *
 from functools import partial
 from kivy.core.window import WindowBase
+from user import *
 
 
 
@@ -50,14 +51,13 @@ class updateZipPopUp(Popup):
         super().__init__(**kwargs)
         
         self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
-        self.zipcode = "47906"
         self.title = "Change Zip Code"
         
         
         self.closeButton = Button(text = "Exit")
         self.closeButton.bind(on_press = self.dismiss)
         
-        self.keyboard = VirtualKeyboard(return_func=self.updateZip)
+        self.keyboard = DigitKeyboard(return_func=self.updateZip)
   
         self.layout.add_widget(self.keyboard, index = 1)
         self.layout.add_widget(self.closeButton, index = 0)   
@@ -67,7 +67,9 @@ class updateZipPopUp(Popup):
         pass
         
     def updateZip(self, input):
-        print("From updateZip: ", input)
+        user = User()
+        user.set_user_zipcode(input)
+        #### TO DO: UPDATE WEATHER ON HOME SCREEN (it will update automatically every 5 mins)
         self.dismiss()
        
        
@@ -76,7 +78,6 @@ class updateWifiPopUp(Popup):
         super().__init__(**kwargs)
         
         self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
-        self.wifi = "47906"
         self.title = "Change wifi"
         
         
@@ -94,5 +95,7 @@ class updateWifiPopUp(Popup):
         
     def updateWifi(self, input):
         print("From updateWifi: ", input)
+        user = User()
+        user.set_user_wifi_name(input)
         self.dismiss()
 
