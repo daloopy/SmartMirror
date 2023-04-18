@@ -6,6 +6,9 @@ from kivy.uix.label import Label
 import subprocess
 from kivymd.app import MDApp
 from kivymd.uix.button import *
+from user import *
+from kivy.animation import Animation
+from internet import *
 #from motionsensor import *
 
 
@@ -44,15 +47,22 @@ class MyApp(MDApp):
 class StartupScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.welcome = Label(text="Welcome",
+        user = User()
+        self.username = user.get_user_name()
+        self.welcome = Label(text="Welcome, {}!".format(self.username),
                              font_size=48)
         self.add_widget(self.welcome)
+        connect_to_wifi()
+        wait_for_connection()
 
     def on_enter(self):
-        Clock.schedule_once(self.switch_to_home, 4)
+        Clock.schedule_once(self.switch_to_home, 30)
 
     def switch_to_home(self, *args):
         self.manager.current = "Home"
+        
+    def animate_image(self, *args):
+        anim = Animation
 
 
 

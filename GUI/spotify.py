@@ -17,6 +17,7 @@ from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.responsivelayout import MDResponsiveLayout
+from kivymd.uix.label import MDLabel
 import requests
 from kivy.core.window import Window
 
@@ -44,14 +45,14 @@ class SpotifyPlayer(MDFloatLayout):
         # Create song label
         self.song_layout = MDFloatLayout(radius = [25,0,25,0])
         self.song = Label(text="Now Listening...",
-                          size_hint = (1,1))
+                          size_hint = (0.1,0.1), pos = (1500,300))
         self.song_layout.add_widget(self.song)
         self.add_widget(self.song_layout)
         
         
         # Create album cover image
         self.download_album_image()
-        self.album_image = Image(source='image.jpg', pos = (500,200), nocache=True, size=(100,100), allow_stretch=False, keep_ratio=True)
+        self.album_image = Image(source='image.jpg', pos = (640,200), nocache=True, size=(100,100), allow_stretch=False, keep_ratio=True)
         self.song_layout.add_widget(self.album_image)
         Clock.schedule_once(self.update_song, 1)
         
@@ -73,10 +74,12 @@ class SpotifyPlayer(MDFloatLayout):
     def skip_track(self):
         self.sp.next_track(device_id=self.spID)
         Clock.schedule_once(self.update_song, 1)
+        self.toggle_play() #might need to delete this im freestlying rn
     
     def back_track(self):
         self.sp.previous_track(device_id=self.spID)
         Clock.schedule_once(self.update_song, 1)
+        self.toggle_play() #might need to delete this im freestlying rn
 
     def toggle_play(self):
         if self.sp.current_playback()['is_playing']:

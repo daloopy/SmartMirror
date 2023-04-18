@@ -66,9 +66,18 @@ class DigitKeyboard(BoxLayout):
         self.enter = Button(text="Enter", size_hint=(0.2,0.2))
         self.enter.bind(on_press = self.exitPopup)
         self.add_widget(self.enter)
+
+        self.delete = Button(text="Delete", size_hint=(0.2,0.2))
+        self.delete.bind(on_press = self.deleteInput)
+        self.add_widget(self.delete)
         
     def appendInput(self, text):
-        self.input.text = self.input.text + str(text)
+        if(len(self.input.text) < 5):
+            self.input.text = self.input.text + str(text)
+        pass
+
+    def deleteInput(self, dt):
+        self.input.text = self.input.text[:-1]
         pass
     
     def exitPopup(self, dt):
