@@ -1,14 +1,15 @@
 from kivy.app import App
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.clock import Clock
-from home import *
 from kivy.uix.label import Label
+from home import *
+
 import subprocess
 from kivymd.app import MDApp
 from kivymd.uix.button import *
 from user import *
 from kivy.animation import Animation
-from internet import *
+#from startup/internet import *
 #from motionsensor import *
 
 
@@ -52,8 +53,8 @@ class StartupScreen(Screen):
         self.welcome = Label(text="Welcome, {}!".format(self.username),
                              font_size=48)
         self.add_widget(self.welcome)
-        connect_to_wifi()
-        wait_for_connection()
+        #connect_to_wifi()
+        #wait_for_connection()
 
     def on_enter(self):
         Clock.schedule_once(self.switch_to_home, 30)

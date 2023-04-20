@@ -11,18 +11,19 @@ from kivy.uix.popup import Popup
 
 
 class VirtualKeyboard(GridLayout):
-    def __init__(self, return_func=None, **kwargs):
+    def __init__(self, return_func=None, preset_text="Enter input: ", **kwargs):
         super().__init__(**kwargs)
         self.return_func = return_func
         self.cols = 1
         self.rows = 2
+        self.preset_text = preset_text
 
         # Create a VirtualKeyboard widget
         self.virtual_keyboard = VKeyboard(on_key_up = self.key_up)
         self.add_widget(self.virtual_keyboard, index = 1)
         
         # create label that will be updated
-        self.input = Label(text='Enter input: ')
+        self.input = Label(text=preset_text)
         self.add_widget(self.input, index = 0)
       
         
@@ -32,7 +33,7 @@ class VirtualKeyboard(GridLayout):
 
         thing = self.input.text
         
-        if (thing == "Enter input: "):
+        if (thing == self.preset_text):
             thing = ""
 
         # keycode translations
