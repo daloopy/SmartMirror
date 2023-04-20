@@ -1,5 +1,5 @@
 from kivy.app import App
-from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.screenmanager import Screen, ScreenManager, FadeTransition
 from kivy.uix.gridlayout import GridLayout
 
 from kivy.clock import Clock
@@ -15,7 +15,7 @@ class StartUpApp(App):
         super().__init__(**kwargs) 
     
     def build(self):
-        sm = ScreenManager()#transition=FadeTransition())
+        sm = ScreenManager(transition=FadeTransition())
         sm.add_widget(NameScreen(name="Enter Name"))
         sm.add_widget(NetworkNameScreen(name="Enter Network Name"))
         sm.add_widget(NetworkPasswordScreen(name="Enter Network Password"))
@@ -44,6 +44,10 @@ class NetworkNameScreen(Screen):
         self.layout = GridLayout(cols=1)
         self.keyboard = VirtualKeyboard(return_func=self.setName, preset_text="Please enter the name of your Wifi Network: ")
         self.layout.add_widget(self.keyboard)
+        self.backbutton = Button(text="Prev")
+        self.backbutton.bind(on_press = self.previous)
+        self.layout.add_widget(self.backbutton)
+        
         self.add_widget(self.layout)
 
     def setName(self, input):
@@ -51,28 +55,40 @@ class NetworkNameScreen(Screen):
         user.set_user_wifi_name(input)
         self.manager.current = "Enter Network Password"
 
+    def previous(self, *args):
+        self.manager.current = "Enter Name"
+
 class NetworkPasswordScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.user = User()
         self.layout = GridLayout(cols=1)
-        
+        self.backbutton = Button(text="Prev")
+        self.backbutton.bind(on_press = self.previous)
+        self.layout.add_widget(self.backbutton)
+        self.keyboard = VirtualKeyboard(return_func=self.setPassword, preset_text="Please enter the password: ")
+        self.layout.add_widget(self.keyboard)
+        self.add_widget(self.layout)
 
     def on_enter(self):
         self.wifi_name = self.user.get_user_wifi_name()
-        self.keyboard = VirtualKeyboard(return_func=self.setPassword, preset_text="Please enter the password for {}: ".format(self.wifi_name))
-        self.layout.add_widget(self.keyboard)
-        self.add_widget(self.layout)
 
     def setPassword(self, input):
         user = User()
         user.set_user_wifi_password(input)
-        self.manager.current = "Connect"        
+        self.manager.current = "Connect"  
+
+    def previous(self, *args):
+        self.manager.current = "Enter Network Name"      
 
 class ConnectToWifi(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.layout = GridLayout(cols=1)
+        self.backbutton = Button(text="Prev")
+        self.backbutton.bind(on_press = self.previous)
+        self.layout.add_widget(self.backbutton)
+
         self.user = User()
         self.network_name = self.user.get_user_wifi_name()
         self.connect_label = Label(text = "Connecting to network...".format(self.network_name))
@@ -89,15 +105,20 @@ class ConnectToWifi(Screen):
         #wait_for_connection()
         self.connect_label.text = "Connected to {}!".format(self.network_name)
         Clock.schedule_once(self.switch_to_zip, 3)
-        
 
     def switch_to_zip(self, *args):
         self.manager.current = "Enter Zip"
+
+    def previous(self, *args):
+        self.manager.current = "Enter Network Password"
 
 class ZipScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.layout = GridLayout(cols=1)
+        self.backbutton = Button(text="Prev")
+        self.backbutton.bind(on_press = self.previous)
+        self.layout.add_widget(self.backbutton)
         self.textlabel = Label(text="Please enter your zipcode:")
         self.layout.add_widget(self.textlabel)
         self.keyboard = DigitKeyboard(return_func=self.setZip)
@@ -108,6 +129,9 @@ class ZipScreen(Screen):
         user = User()
         user.set_user_zipcode(input)
         self.manager.current = "Exit"
+
+    def previous(self, *args):
+        self.manager.current = "Enter Network Password"
 
 class ExitScreen(Screen):
     def __init__(self, **kwargs):
