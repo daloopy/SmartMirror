@@ -116,11 +116,13 @@ class ExitScreen(Screen):
         self.add_widget(self.layout)
 
     def on_enter(self, *args):
+        self.username = self.user.get_user_name()
+        self.textlabel.text="Thank you, {}!".format(self.username)
         Clock.schedule_once(self.connected_to, 3)
 
     def connected_to(self, *args):    
         self.networkname = self.user.get_user_wifi_name()
-        self.textlabel.text = "Your network is {}.".format(self.networkname)
+        self.textlabel.text = "Your current network connection is {}.".format(self.networkname)
         Clock.schedule_once(self.location_is, 3)
 
     def location_is(self, *args):    

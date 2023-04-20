@@ -21,6 +21,7 @@ class VirtualKeyboard(GridLayout):
         # Create a VirtualKeyboard widget
         self.virtual_keyboard = VKeyboard(on_key_up = self.key_up)
         self.add_widget(self.virtual_keyboard, index = 1)
+        self.caps_lock = False
         
         # create label that will be updated
         self.input = Label(text=preset_text)
@@ -32,6 +33,7 @@ class VirtualKeyboard(GridLayout):
             keycode = keycode[1]
 
         thing = self.input.text
+        self.shift = False
         
         if (thing == self.preset_text):
             thing = ""
@@ -39,6 +41,16 @@ class VirtualKeyboard(GridLayout):
         # keycode translations
         if keycode == "spacebar":
             keycode = " "
+        elif keycode == "tab":
+            keycode = "  "
+        elif keycode == "capslock":
+            keycode = ""
+            self.caps_lock = not self.caps_lock
+        elif keycode == "shift":
+            keycode = ""
+            self.shift = True
+        elif keycode == "layout":
+            keycode = ""
         elif keycode == "backspace":
             thing = thing[:-1]
             keycode = ""
@@ -46,7 +58,10 @@ class VirtualKeyboard(GridLayout):
             keycode = ""
             if(self.return_func is not None):
                 self.return_func(self.input.text)
-                
+
+        if self.caps_lock == True or self.shift == True:
+            keycode = keycode.upper()
+
         # update label
         self.input.text = f'{thing}{keycode}'
         pass
