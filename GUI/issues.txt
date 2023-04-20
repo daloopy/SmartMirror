@@ -1,13 +1,45 @@
+Screenmanager.py -> SMART MIRROR GUI
+---------------------------------------------
 when the songs arent skipped, the song name and image aren't updated. theyre only updated on skips and rewinds.
-
 regenerate weatherapi token
 
 create 2 inputs for wifi name and password
 maybe get local networks then prompt password?
-
-make it full screen when run
+maybe have 2 screens instead of popup
 
 error handling for spotify. should force current (GUI) device to play music.
+
+add settings to change lights
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+startup.py -> SMART MIRROR GUI
+---------------------------------------------
+format keyboards on screens
+format digit keyboard on screen
+
+add back button to go back to previous screen (if incorrect info was entered)
+
+make full screen
+
+fix startup script
+- on first power on, create a file name flag.txt if flag.txt does not exist
+- if flag.txt not already created, run startup.py
+- if flag.txt already created, open spotify on browser and run Screenmanager.py
+    - error handling: maybe add another mini gui to connect to wifi or let users reenter wifi 
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Overall
+---------------------------------------------
+
+
+
+
+
 
 ideas:
 
