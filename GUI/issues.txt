@@ -14,7 +14,7 @@ add settings to change lights
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-startup.py -> SMART MIRROR GUI
+startup.py -> STARTUP GUI
 ---------------------------------------------
 format keyboards on screens
 format digit keyboard on screen
@@ -35,8 +35,7 @@ fix startup script
 
 Overall
 ---------------------------------------------
-
-
+Make it pretty!!!
 
 
 
@@ -44,3 +43,5 @@ Overall
 ideas:
 
 - quotes of the day
+- sports scores
+- timer/alarm
