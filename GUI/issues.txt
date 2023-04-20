@@ -37,7 +37,7 @@ Overall
 ---------------------------------------------
 Make it pretty!!!
 
-
+virtual keyboard shift button needs testing
 
 
 ideas:

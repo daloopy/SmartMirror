@@ -88,8 +88,12 @@ class ConnectToWifi(Screen):
         #connect_to_wifi()
         #wait_for_connection()
         self.connect_label.text = "Connected to {}!".format(self.network_name)
+        Clock.schedule_once(self.switch_to_zip, 3)
+        
+
+    def switch_to_zip(self, *args):
         self.manager.current = "Enter Zip"
-    
+
 class ZipScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
