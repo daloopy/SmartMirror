@@ -156,6 +156,10 @@ class ExitScreen(Screen):
     def location_is(self, *args):    
         self.location = self.user.get_user_zipcode()
         self.textlabel.text = "Your current location is {}.".format(self.location)
+        Clock.schedule_once(self.exit_app, 3)
+
+    def exit_app(self, *args):
+        App.get_running_app().stop()
      
 
 if __name__ == "__main__":

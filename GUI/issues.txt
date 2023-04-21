@@ -19,8 +19,6 @@ startup.py -> STARTUP GUI
 format keyboards on screens
 format digit keyboard on screen
 
-add back button to go back to previous screen (if incorrect info was entered)
-
 make full screen
 
 fix startup script
