@@ -5,17 +5,13 @@ def main():
     # check flag - a user has been created 
     userCreated = os.path.exists("home/team17/flag")
 
-    # if it has:
-    if(userCreated):
-        open_spotify() # open spotify on chromium
-        os.system("python3 home/team17/Documents/SmartMirror/GUI/screenmanager.py")
-
     # if it hasnt:
-    else:
+    if(not userCreated):
         os.system("mkdir home/team17/flag") # set flag
         os.system("python3 home/team17/Documents/SmartMirror/GUI/startup.py")
-        open_spotify() # start spotify on chrome
-        os.system("python3 home/team17/Documents/SmartMirror/GUI/screenmanager.py")
+        
+    open_spotify() # start spotify on chrome
+    os.system("python3 home/team17/Documents/SmartMirror/GUI/screenmanager.py")
         
 
 def open_spotify():
