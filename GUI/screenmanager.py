@@ -9,7 +9,8 @@ from kivymd.uix.button import *
 from user import *
 from kivy.animation import Animation
 from internet import *
-#from motionsensor import *
+from kivy.core.window import Window
+from motionsensor import *
 
 
 
@@ -29,7 +30,7 @@ class MyApp(MDApp):
     
     def on_start(self, time=10):
         # Schedule a function to check for the global variable every second
-        #Clock.schedule_interval(self.check_sleep_mode, time)
+        Clock.schedule_interval(self.check_sleep_mode, time)
         pass
         
 
@@ -52,11 +53,12 @@ class StartupScreen(Screen):
         self.welcome = Label(text="Welcome, {}!".format(self.username),
                              font_size=48)
         self.add_widget(self.welcome)
-        connect_to_wifi()
-        wait_for_connection()
+        #connect_to_wifi()
+        #wait_for_connection()
 
     def on_enter(self):
-        Clock.schedule_once(self.switch_to_home, 30)
+        Clock.schedule_once(self.switch_to_home, 5)
+        
 
     def switch_to_home(self, *args):
         self.manager.current = "Home"
@@ -67,4 +69,7 @@ class StartupScreen(Screen):
 
 
 if __name__ == "__main__":
+    Window.fullscreen = 'auto'
+    Window.maximize()
     MyApp().run()
+    

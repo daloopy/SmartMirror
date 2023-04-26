@@ -33,26 +33,27 @@ class SpotifyPlayer(MDFloatLayout):
 
         # Create buttons
         self.play_button = MDFloatingActionButton(icon="play-box",
-                            size_hint=(0.1, 0.1), pos=(1500,200),
+                            size_hint=(0.1, 0.1), pos=(1050,200),
                             icon_size= "72")
         self.skip_button = MDFloatingActionButton(icon='skip-forward',
-                            size_hint=(0.1, 0.1), pos=(1700, 200),
+                            size_hint=(0.1, 0.1), pos=(1200, 200),
                             icon_size= "72")
         self.back_button = MDFloatingActionButton(icon='skip-backward',
-                            size_hint=(0.1, 0.1), pos=(1300,200),
+                            size_hint=(0.1, 0.1), pos=(900,200),
                             icon_size= "72")
         
         # Create song label
         self.song_layout = MDFloatLayout(radius = [25,0,25,0])
         self.song = Label(text="Now Listening...",
-                          size_hint = (0.1,0.1), pos = (1500,300))
+                          size_hint = (0.1,0.1), pos = (800,25)
+                          )
         self.song_layout.add_widget(self.song)
         self.add_widget(self.song_layout)
         
         
         # Create album cover image
         self.download_album_image()
-        self.album_image = Image(source='image.jpg', pos = (640,200), nocache=True, size=(100,100), allow_stretch=False, keep_ratio=True)
+        self.album_image = Image(source='image.jpg', pos = (440,200), nocache=True, size=(100,100), allow_stretch=False, keep_ratio=True)
         self.song_layout.add_widget(self.album_image)
         Clock.schedule_once(self.update_song, 1)
         
