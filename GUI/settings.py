@@ -2,6 +2,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
+from kivy.core.window import Window
 from kivy.uix.textinput import TextInput
 from keyboard import *
 from functools import partial
@@ -59,11 +60,11 @@ class updateZipPopUp(Popup):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         
-        self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
+        self.layout = BoxLayout(orientation="vertical", padding = 10, spacing = 10)
         self.title = "Change Zip Code"
         
         
-        self.closeButton = Button(text = "Exit")
+        self.closeButton = Button(text = "Exit", size_hint=(1,0.3))
         self.closeButton.bind(on_press = self.dismiss)
         
         self.keyboard = DigitKeyboard(return_func=self.updateZip)

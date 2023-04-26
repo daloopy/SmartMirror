@@ -70,22 +70,29 @@ class VirtualKeyboard(GridLayout):
 class DigitKeyboard(BoxLayout):
     def __init__(self, return_func=None, **kwargs):
         super().__init__(**kwargs)
+        self.orientation = "vertical"
         self.return_func = return_func
-        self.input = Label(text = "")
+        self.input = Label(text = "", font_size= 120)
         self.add_widget(self.input)
+
+        self.button_layout = BoxLayout(orientation = "horizontal")
         
         for i in range(10):
-            digit = Button(text=str(i), size_hint=(0.2,0.2))
+            digit = Button(text=str(i), size_hint=(1,0.3))
             digit.bind(on_release=lambda button: self.appendInput(button.text))
-            self.add_widget(digit)
+            self.button_layout.add_widget(digit)
         
-        self.enter = Button(text="Enter", size_hint=(0.2,0.2))
-        self.enter.bind(on_press = self.exitPopup)
-        self.add_widget(self.enter)
 
-        self.delete = Button(text="Delete", size_hint=(0.2,0.2))
+        self.enter = Button(text="Enter", size_hint=(1,0.3))
+        self.enter.bind(on_press = self.exitPopup)
+        self.button_layout.add_widget(self.enter)
+
+
+        self.delete = Button(text="Delete", size_hint=(1,0.3))
         self.delete.bind(on_press = self.deleteInput)
-        self.add_widget(self.delete)
+        self.button_layout.add_widget(self.delete)
+
+        self.add_widget(self.button_layout)
         
     def appendInput(self, text):
         if(len(self.input.text) < 5):

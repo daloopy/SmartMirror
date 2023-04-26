@@ -57,7 +57,7 @@ class StartupScreen(Screen):
         #wait_for_connection()
 
     def on_enter(self):
-        Clock.schedule_once(self.switch_to_home, 7)
+        Clock.schedule_once(self.switch_to_home, 4)
 
     def switch_to_home(self, *args):
         self.manager.current = "Home"

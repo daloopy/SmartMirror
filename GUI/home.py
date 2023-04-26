@@ -59,9 +59,10 @@ class Home(MDScreen):
                                                 pos_hint={"right":1, "top": 1}, icon_size = "64")
         self.togglewidgets.bind(on_press=self.cycle_widgets)
 
-        # define widgets here
+        # define widgets here ****************************
         self.spotify_player = SpotifyPlayer()
-        
+        # self.calendar = Calendar() # uncomment when created
+        # self.sports_widget = Sports() # uncomment when created
 
 
         self.layout.add_widget(self.weather_label)
