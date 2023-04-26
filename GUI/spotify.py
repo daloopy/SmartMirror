@@ -150,64 +150,15 @@ def getDeviceID():
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state'))
     playback_info = sp.current_playback()
 
-    if playback_info is None:
-        print("\n\n****\n** No device is currently playing. Please start playing music on this device, then rerun. Otherwise, buttons won't work. **\n****\n\n")
-        return None
+    # if playback_info is None:
+        # print("\n\n****\n** No device is currently playing. Please start playing music on this device, then rerun. Otherwise, buttons won't work. **\n****\n\n")
+        # return None
 
-    # Print the device ID
-    device_id = playback_info['device']['id']
-    print(f"Your device ID is: {device_id}")
-    return device_id
+    # # Print the device ID
+    # device_id = playback_info['device']['id']
+    # print(f"Your device ID is: {device_id}")
+    # return device_id
 
 
- ############## EXAMPLE FUNCTIONS #########################
-def searchSpotify(search_str = 'Radiohead'):
-    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
-    result = sp.search(search_str)
-    return result
-
-def showResults(result):
-    pprint(result)
-
-def listBirdy():
-    birdy_uri = 'spotify:artist:2WX2uTcsvV5OnS0inACecP'
-    spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
-
-    results = spotify.artist_albums(birdy_uri, album_type='album')
-    albums = results['items']
-    while results['next']:
-        results = spotify.next(results)
-        albums.extend(results['items'])
-
-    for album in albums:
-        print(album['name'])
-
-def playSpotify():
-    scope = "user-read-playback-state,user-modify-playback-state"
-    sp = spotipy.Spotify(client_credentials_manager=SpotifyOAuth(scope=scope))
-
-    # Shows playing devices
-    res = sp.devices()
-    pprint(res)
-
-    # Change track
-    sp.start_playback(uris=['spotify:track:6gdLoMygLsgktydTQ71b15'])
-
-    # Change volume
-    sp.volume(100)
-    sleep(2)
-    sp.volume(50)
-    sleep(2)
-    sp.volume(100)
-
-def listSavedSongs():
-    scope = "user-library-read"
-
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
-
-    results = sp.current_user_saved_tracks()
-    for idx, item in enumerate(results['items']):
-        track = item['track']
-        print(idx, track['artists'][0]['name'], " – ", track['name'])   
 
 getDeviceID()

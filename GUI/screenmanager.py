@@ -48,8 +48,9 @@ class MyApp(MDApp):
 class StartupScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        user = User()
-        self.username = user.get_user_name()
+        #user = User()
+        #self.username = user.get_user_name()
+        self.username = "hhh"
         self.welcome = Label(text="Welcome, {}!".format(self.username),
                              font_size=48)
         self.add_widget(self.welcome)
