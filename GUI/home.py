@@ -29,7 +29,7 @@ class Home(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.layout = MDFloatLayout(pos = self.pos, size = self.size, radius = [25,0,0,0])
-
+        self.index = 0
         town, temp, condition = getWeather()
         self.date_label = MDLabel(text=datetime.now().strftime("%B %d, %Y"),
                                 size_hint=(0.5, 0.5),
@@ -51,23 +51,26 @@ class Home(MDScreen):
         self.settings_btn = MDFloatingActionButton(icon="cog",
                                                 theme_icon_color="Custom", size_hint = (0.1, 0.1),
                                                 pos_hint={"right":1}, icon_size = "64")
-        
-        
-        #Button(text="settings",
-        #size_hint=(0.1, 0.1),
-        #pos_hint={"right":1},
-        #font_size= 36)
 
         self.settings_btn.bind(on_press=settingPopUp)
 
+        self.togglewidgets = MDFloatingActionButton(icon="refresh",
+                                                theme_icon_color="Custom", size_hint = (0.1, 0.1),
+                                                pos_hint={"right":1, "top": 1}, icon_size = "64")
+        self.togglewidgets.bind(on_press=self.cycle_widgets)
+
+        # define widgets here
         self.spotify_player = SpotifyPlayer()
         
+
+
         self.layout.add_widget(self.weather_label)
         self.layout.add_widget(self.time_label)
         self.layout.add_widget(self.date_label)
         self.layout.add_widget(self.town_label)
         self.layout.add_widget(self.settings_btn)
-        self.layout.add_widget(self.spotify_player)
+        self.layout.add_widget(self.togglewidgets)
+        
 
         self.add_widget(self.layout) # add the GridLayout to the screen
         
@@ -83,5 +86,20 @@ class Home(MDScreen):
         self.weather_label.text = "{}°F  {}".format(temp, condition)
         self.town_label.text = "{}".format(town)
 
-
+    def cycle_widgets(self, dt):
+        self.index = (self.index + 1) % 4 # cycle through 3 widgets we will add
+        
+        if(self.index == 1):
+            self.layout.add_widget(self.spotify_player)
+        elif(self.index == 2):
+            self.layout.remove_widget(self.spotify_player) # remove previous widgets
+            #self.layout.add_widget(self.sports_widget)
+        elif(self.index == 3):
+            #self.layout.remove_widget(self.sports_widget) # remove previous widgets
+            #self.layout.add_widget(self.calendar)
+            pass
+        elif(self.index == 0):
+            # have no widgets on screen
+            #self.layout.remove_widget(self.calendar) # remove previous widgets
+            pass
 

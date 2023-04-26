@@ -108,7 +108,7 @@ class SpotifyPlayer(MDFloatLayout):
             artist_name = current_playback['item']['artists'][0]['name']
             return f"{song_name} - {artist_name}"
         except (AttributeError, IndexError, TypeError, SpotifyException) as e:
-            return "Current Playback"
+            return "Fetching Current Playback..."
 
     def update_song(self, dt):
         try:
