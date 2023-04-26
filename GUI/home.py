@@ -72,7 +72,7 @@ class Home(MDScreen):
         self.add_widget(self.layout) # add the GridLayout to the screen
         
         Clock.schedule_interval(self.update_time, 30)
-        Clock.schedule_interval(self.update_weather, 120) # update every 5 minutes -> max 288 calls in 1 day
+        Clock.schedule_interval(self.update_weather, 20) # update every 5 minutes -> max 288 calls in 1 day
 
     def update_time(self, dt):
         self.time_label.text = datetime.now().strftime("%I:%M %p")

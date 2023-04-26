@@ -8,14 +8,15 @@ def main():
     # if it hasnt:
     if(not userCreated):
         os.system("mkdir home/team17/flag") # set flag
-        os.system("python3 home/team17/Documents/SmartMirror/GUI/startup.py")
+        #os.system("python3 home/team17/Documents/SmartMirror/GUI/startup.py")
+        os.system("python3 startup.py")
         
     open_spotify() # start spotify on chrome
-    os.system("python3 home/team17/Documents/SmartMirror/GUI/screenmanager.py")
+    os.system("python3 screenmanager.py")
         
 
 def open_spotify():
-    path = "home/team17/Local/Chromium/Application/chrome.exe" # TO-DO: fix path **********
+    path = "home/team17/Local/Chromium/Application/chrome.exe" # TO-DO: fix path to chromium application **********
     chrome = webbrowser.get('{} %s'.format(path))
     chrome.open_new("https://www.spotify.com")
 

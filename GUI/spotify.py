@@ -27,7 +27,7 @@ class SpotifyPlayer(MDFloatLayout):
         # Initialize the Spotipy client with the access token
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
         # Set the output device to the current playing device 
-        self.spID = "11d9bf2ca1e98be4eafafcf94df81143796be422" #getDeviceID()
+        self.spID = getDeviceID()
         #self.sp.transfer_playback(self.spID, force_play=True)
 
         # Create buttons
@@ -88,41 +88,45 @@ class SpotifyPlayer(MDFloatLayout):
             
 
     def get_current_song(self):
-        current_playback = self.sp.current_playback()
-        if current_playback is None:
-            return "Now Listening..."
-        song_name = current_playback['item']['name']
-        artist_name = current_playback['item']['artists'][0]['name']
-        return f"{song_name} - {artist_name}"
+        try:
+            current_playback = self.sp.current_playback()
+            if current_playback is None:
+                return "Now Listening..."
+            song_name = current_playback['item']['name']
+            artist_name = current_playback['item']['artists'][0]['name']
+            return f"{song_name} - {artist_name}"
+        except (AttributeError, IndexError, TypeError) as e:
+            return "Current Playback"
 
     def update_song(self, dt):
         self.song.text = self.get_current_song()
         
         self.download_album_image()
         self.update_image()
-        #Clock.schedule_once(self.update_image, 3)
         
     def update_image(self):
-        #self.album_image.source=''
         self.album_image.reload()
-
         self.album_image.source='image.jpg'
-        #self.album_image.reload()
-        #self.album_image.nocache=True
         
         
     def get_album_image(self):
-        current_playback = self.sp.current_playback()
-        album_cover_url = current_playback['item']['album']['images'][0]['url']
-        nocache_url = album_cover_url + "?cache={cache_buster}" + "&size=320x320"
-        #print(nocache_url)
-        return nocache_url
+        try: 
+            current_playback = self.sp.current_playback()
+            album_cover_url = current_playback['item']['album']['images'][0]['url']
+            nocache_url = album_cover_url + "?cache={cache_buster}" + "&size=320x320"
+            return nocache_url
+        except (AttributeError, IndexError, TypeError) as e:
+            return None
         
     def download_album_image(self):
         url = self.get_album_image()
+        if(url is None):
+            return
+        
         response = requests.get(url)
         with open('image.jpg', 'wb') as f:
             f.write(response.content)
+               
         
             
 
