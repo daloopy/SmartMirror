@@ -19,15 +19,15 @@ def settingPopUp(instance):
 
         changeZip = Button(text = "Change Zip Code")
         changeZip.bind(on_press=changeZipPopUp)
-        changeWiFi = Button(text = "Change WiFi")
-        changeWiFi.bind(on_press=changeWiFiPopUp)
+        #changeWiFi = Button(text = "Change WiFi")
+        #changeWiFi.bind(on_press=changeWiFiPopUp)
         closeButton = Button(text = "Exit Settings")
         changeUser = Button(text = "Change Name")
         changeUser.bind(on_press=changeUserPopUp)
   
         layout.add_widget(popupLabel)
         layout.add_widget(changeZip)
-        layout.add_widget(changeWiFi)
+        #layout.add_widget(changeWiFi)
         layout.add_widget(changeUser) 
         layout.add_widget(closeButton) 
              
@@ -95,7 +95,7 @@ class updateWifiPopUp(Popup):
         self.closeButton = Button(text = "Exit", size_hint=(1,0.3))
         self.closeButton.bind(on_press = self.dismiss)
         
-        self.keyboard = VirtualKeyboard(return_func=self.updateWifi)
+        self.keyboard = VirtualKeyboard(return_func=self.updateWifi, preset_text= "Enter Wifi Network Name")
   
         self.layout.add_widget(self.keyboard, index = 1)
         self.layout.add_widget(self.closeButton, index = 0)   
@@ -121,7 +121,7 @@ class updateUserPopUp(Popup):
         self.closeButton = Button(text = "Exit", size_hint=(1,0.3))
         self.closeButton.bind(on_press = self.dismiss)
         
-        self.keyboard = VirtualKeyboard(return_func=self.updateWifi)
+        self.keyboard = VirtualKeyboard(return_func=self.updateWifi, preset_text="Enter Name: ")
   
         self.layout.add_widget(self.keyboard, index = 1)
         self.layout.add_widget(self.closeButton, index = 0)   
@@ -132,6 +132,8 @@ class updateUserPopUp(Popup):
         
     def updateWifi(self, input):
         print("From updateUser: ", input)
-        user = User()
-        user.set_user_name(input)
+        if input != "Enter Name: ":
+            user = User()
+            user.set_user_name(input)
+        
         self.dismiss()
