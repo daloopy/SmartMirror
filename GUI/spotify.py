@@ -16,6 +16,7 @@ from kivymd.uix.button import *
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.floatlayout import MDFloatLayout
+from spotipy.exceptions import SpotifyException
 import requests
 
 class SpotifyPlayer(MDFloatLayout):
@@ -71,21 +72,32 @@ class SpotifyPlayer(MDFloatLayout):
 
         
     def skip_track(self):
-        self.sp.next_track(device_id=self.spID)
-        Clock.schedule_once(self.update_song, 1)
+        if self.spID is not None:
+            try:
+                self.sp.next_track(device_id=self.spID)
+                Clock.schedule_once(self.update_song, 1)
+            except (AttributeError, IndexError, TypeError, SpotifyException) as e:
+                return
     
     def back_track(self):
-        self.sp.previous_track(device_id=self.spID)
-        Clock.schedule_once(self.update_song, 1)
+        if self.spID is not None:
+            try:
+                self.sp.previous_track(device_id=self.spID)
+                Clock.schedule_once(self.update_song, 1)
+            except (AttributeError, IndexError, TypeError, SpotifyException) as e:
+                return
 
     def toggle_play(self):
-        if self.sp.current_playback()['is_playing']:
-            self.sp.pause_playback()
-            self.play_button.background_normal = 'img/play.png'
-        else:
-            self.sp.start_playback(device_id=self.spID)
-            self.play_button.background_normal = 'img/pause.png'
-            
+        try:    
+            if self.sp.current_playback()['is_playing']:
+                self.sp.pause_playback()
+                self.play_button.background_normal = 'img/play.png'
+            else:
+                self.sp.start_playback(device_id=self.spID)
+                self.play_button.background_normal = 'img/pause.png'
+        
+        except (AttributeError, IndexError, TypeError, SpotifyException) as e:
+            return 
 
     def get_current_song(self):
         try:
@@ -95,14 +107,18 @@ class SpotifyPlayer(MDFloatLayout):
             song_name = current_playback['item']['name']
             artist_name = current_playback['item']['artists'][0]['name']
             return f"{song_name} - {artist_name}"
-        except (AttributeError, IndexError, TypeError) as e:
+        except (AttributeError, IndexError, TypeError, SpotifyException) as e:
             return "Current Playback"
 
     def update_song(self, dt):
-        self.song.text = self.get_current_song()
-        
-        self.download_album_image()
-        self.update_image()
+        try:
+            self.song.text = self.get_current_song()
+            
+            self.download_album_image()
+            self.update_image()
+
+        except (AttributeError, IndexError, TypeError, SpotifyException) as e:
+            return
         
     def update_image(self):
         self.album_image.reload()
@@ -115,7 +131,7 @@ class SpotifyPlayer(MDFloatLayout):
             album_cover_url = current_playback['item']['album']['images'][0]['url']
             nocache_url = album_cover_url + "?cache={cache_buster}" + "&size=320x320"
             return nocache_url
-        except (AttributeError, IndexError, TypeError) as e:
+        except (AttributeError, IndexError, TypeError, SpotifyException) as e:
             return None
         
     def download_album_image(self):
