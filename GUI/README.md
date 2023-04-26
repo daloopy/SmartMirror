@@ -1,8 +1,13 @@
 This is the GUI for our Smart Mirror.
 
-To run, simple type:
+To run:
+python3 startup/poweron.py
 
-python screenmanager.py
+To run on startup on the Raspberry Pi add the following line to the rc.local file.
+python3 startup/poweron.py
+
+
+
 
 Global variables you need to set:
 SPOTIPY_CLIENT_ID   - Spotify developer project ID

@@ -10,6 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
 
 
+<<<<<<< HEAD
 class VirtualKeyboard(GridLayout):
     def __init__(self, return_func=None, **kwargs):
         super().__init__(**kwargs)
@@ -24,6 +25,24 @@ class VirtualKeyboard(GridLayout):
         # create label that will be updated
         self.input = Label(text='Enter input: ')
         self.add_widget(self.input, index = 0)
+=======
+class VirtualKeyboard(BoxLayout):
+    def __init__(self, return_func=None, preset_text="Enter input: ", **kwargs):
+        super().__init__(**kwargs)
+        self.return_func = return_func
+        self.orientation = "vertical"
+        self.preset_text = preset_text
+        # create label that will be updated
+        self.input = Label(text=preset_text, font_size= 120)
+        self.add_widget(self.input)
+
+        # Create a VirtualKeyboard widget
+        self.virtual_keyboard = VKeyboard(on_key_up = self.key_up, size=(2400, 600))
+        self.add_widget(self.virtual_keyboard)
+        self.caps_lock = False
+        
+        
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
       
         
     def key_up(self, keyboard, keycode, label=None, *args):
@@ -31,13 +50,29 @@ class VirtualKeyboard(GridLayout):
             keycode = keycode[1]
 
         thing = self.input.text
+<<<<<<< HEAD
         
         if (thing == "Enter input: "):
+=======
+        self.shift = False
+        
+        if (thing == self.preset_text):
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
             thing = ""
 
         # keycode translations
         if keycode == "spacebar":
             keycode = " "
+        elif keycode == "tab":
+            keycode = "  "
+        elif keycode == "capslock":
+            keycode = ""
+            self.caps_lock = not self.caps_lock
+        elif keycode == "shift":
+            keycode = ""
+            self.shift = True
+        elif keycode == "layout":
+            keycode = ""
         elif keycode == "backspace":
             thing = thing[:-1]
             keycode = ""
@@ -45,7 +80,14 @@ class VirtualKeyboard(GridLayout):
             keycode = ""
             if(self.return_func is not None):
                 self.return_func(self.input.text)
+<<<<<<< HEAD
                 
+=======
+
+        if self.caps_lock == True or self.shift == True:
+            keycode = keycode.upper()
+
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         # update label
         self.input.text = f'{thing}{keycode}'
         pass
@@ -54,6 +96,7 @@ class VirtualKeyboard(GridLayout):
 class DigitKeyboard(BoxLayout):
     def __init__(self, return_func=None, **kwargs):
         super().__init__(**kwargs)
+<<<<<<< HEAD
         self.return_func = return_func
         self.input = Label(text = "")
         self.add_widget(self.input)
@@ -70,12 +113,44 @@ class DigitKeyboard(BoxLayout):
         self.delete = Button(text="Delete", size_hint=(0.2,0.2))
         self.delete.bind(on_press = self.deleteInput)
         self.add_widget(self.delete)
+=======
+        self.orientation = "vertical"
+        self.return_func = return_func
+        self.input = Label(text = "", font_size= 120)
+        self.add_widget(self.input)
+
+        self.button_layout = BoxLayout(orientation = "horizontal")
+        
+        for i in range(10):
+            digit = Button(text=str(i), size_hint=(1,0.3))
+            digit.bind(on_release=lambda button: self.appendInput(button.text))
+            self.button_layout.add_widget(digit)
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         
     def appendInput(self, text):
         if(len(self.input.text) < 5):
             self.input.text = self.input.text + str(text)
         pass
 
+<<<<<<< HEAD
+=======
+        self.enter = Button(text="Enter", size_hint=(1,0.3))
+        self.enter.bind(on_press = self.exitPopup)
+        self.button_layout.add_widget(self.enter)
+
+
+        self.delete = Button(text="Delete", size_hint=(1,0.3))
+        self.delete.bind(on_press = self.deleteInput)
+        self.button_layout.add_widget(self.delete)
+
+        self.add_widget(self.button_layout)
+        
+    def appendInput(self, text):
+        if(len(self.input.text) < 5):
+            self.input.text = self.input.text + str(text)
+        pass
+
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
     def deleteInput(self, dt):
         self.input.text = self.input.text[:-1]
         pass

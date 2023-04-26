@@ -1,16 +1,22 @@
 from kivy.app import App
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.clock import Clock
-from home import *
 from kivy.uix.label import Label
+from home import *
+
 import subprocess
 from kivymd.app import MDApp
 from kivymd.uix.button import *
 from user import *
 from kivy.animation import Animation
+<<<<<<< HEAD
 from internet import *
 from kivy.core.window import Window
 from motionsensor import *
+=======
+#from startup/internet import *
+#from motionsensor import *
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
 
 
 

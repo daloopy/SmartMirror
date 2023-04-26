@@ -2,11 +2,15 @@ from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
+from kivy.core.window import Window
 from kivy.uix.textinput import TextInput
 from keyboard import *
 from functools import partial
 from kivy.core.window import WindowBase
+<<<<<<< HEAD
 from kivymd.uix.button import *
+=======
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
 from user import *
 
 
@@ -19,15 +23,19 @@ def settingPopUp(instance):
 
         changeZip = MDFillRoundFlatIconButton(text = "Change Zip Code", icon = "location-enter")
         changeZip.bind(on_press=changeZipPopUp)
-        changeWiFi = Button(text = "Change WiFi")
-        changeWiFi.bind(on_press=changeWiFiPopUp)
+        #changeWiFi = Button(text = "Change WiFi")
+        #changeWiFi.bind(on_press=changeWiFiPopUp)
         closeButton = Button(text = "Exit Settings")
         changeUser = Button(text = "Change Name")
         changeUser.bind(on_press=changeUserPopUp)
   
         layout.add_widget(popupLabel)
         layout.add_widget(changeZip)
+<<<<<<< HEAD
         layout.add_widget(changeWiFi)
+=======
+        #layout.add_widget(changeWiFi)
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         layout.add_widget(changeUser) 
         layout.add_widget(closeButton) 
              
@@ -60,11 +68,19 @@ class updateZipPopUp(Popup):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         
+<<<<<<< HEAD
         self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
         self.title = "Change Zip Code"
         
         
         self.closeButton = Button(text = "Exit")
+=======
+        self.layout = BoxLayout(orientation="vertical", padding = 10, spacing = 10)
+        self.title = "Change Zip Code"
+        
+        
+        self.closeButton = Button(text = "Exit", size_hint=(1,0.3))
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         self.closeButton.bind(on_press = self.dismiss)
         
         self.keyboard = DigitKeyboard(return_func=self.updateZip)
@@ -88,6 +104,7 @@ class updateWifiPopUp(Popup):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         
+<<<<<<< HEAD
         self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
         self.title = "Change wifi"
         
@@ -96,6 +113,16 @@ class updateWifiPopUp(Popup):
         self.closeButton.bind(on_press = self.dismiss)
         
         self.keyboard = VirtualKeyboard(return_func=self.updateWifi)
+=======
+        self.layout = BoxLayout(orientation="vertical", padding = 10, spacing = 10)
+        self.title = "Change wifi"
+        
+        
+        self.closeButton = Button(text = "Exit", size_hint=(1,0.3))
+        self.closeButton.bind(on_press = self.dismiss)
+        
+        self.keyboard = VirtualKeyboard(return_func=self.updateWifi, preset_text= "Enter Wifi Network Name")
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
   
         self.layout.add_widget(self.keyboard, index = 1)
         self.layout.add_widget(self.closeButton, index = 0)   
@@ -114,6 +141,7 @@ class updateUserPopUp(Popup):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         
+<<<<<<< HEAD
         self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
         self.title = "Change Name"
         
@@ -122,6 +150,16 @@ class updateUserPopUp(Popup):
         self.closeButton.bind(on_press = self.dismiss)
         
         self.keyboard = VirtualKeyboard(return_func=self.updateWifi)
+=======
+        self.layout = BoxLayout(orientation="vertical", padding = 10, spacing = 10)
+        self.title = "Change Name"
+        
+        
+        self.closeButton = Button(text = "Exit", size_hint=(1,0.3))
+        self.closeButton.bind(on_press = self.dismiss)
+        
+        self.keyboard = VirtualKeyboard(return_func=self.updateWifi, preset_text="Enter Name: ")
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
   
         self.layout.add_widget(self.keyboard, index = 1)
         self.layout.add_widget(self.closeButton, index = 0)   
@@ -132,6 +170,14 @@ class updateUserPopUp(Popup):
         
     def updateWifi(self, input):
         print("From updateUser: ", input)
+<<<<<<< HEAD
         user = User()
         user.set_user_name(input)
         self.dismiss()
+=======
+        if input != "Enter Name: ":
+            user = User()
+            user.set_user_name(input)
+        
+        self.dismiss()
+>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
