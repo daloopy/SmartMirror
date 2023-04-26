@@ -34,11 +34,11 @@ class Home(MDScreen):
         self.date_label = MDLabel(text=datetime.now().strftime("%B %d, %Y"),
                                 size_hint=(0.5, 0.1),
                                 pos_hint={"left": 0, "top":1},
-<<<<<<< HEAD
+#<<<<<<< HEAD
                                 font_size= 48, font_style = "H4", pos = (0,20))
-=======
-                                font_size= 48, font_style = "H4")
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
+#=======
+                                #font_size= 48, font_style = "H4")
+#>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         self.time_label = MDLabel(text=datetime.now().strftime("%I:%M"),
                                 size_hint=(0.5, 0.1),
                                 pos_hint={"left": 0, "top":0.90},
@@ -80,11 +80,11 @@ class Home(MDScreen):
         self.add_widget(self.layout) # add the GridLayout to the screen
         
         Clock.schedule_interval(self.update_time, 30)
-<<<<<<< HEAD
+#<<<<<<< HEAD
         Clock.schedule_interval(self.update_weather, 900) # update every 5 minutes -> max 288 calls in 1 day
-=======
+#=======
         Clock.schedule_interval(self.update_weather, 120) # update every 5 minutes -> max 288 calls in 1 day
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
+#>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
 
     def update_time(self, dt):
         self.time_label.text = datetime.now().strftime("%I:%M %p")
@@ -94,8 +94,8 @@ class Home(MDScreen):
         town, temp, condition = getWeather()
         self.weather_label.text = "{}°F  {}".format(temp, condition)
         self.town_label.text = "{}".format(town)
-<<<<<<< HEAD
-=======
+#<<<<<<< HEAD
+#=======
 
     def cycle_widgets(self, dt):
         self.index = (self.index + 1) % 4 # cycle through 3 widgets we will add
@@ -114,4 +114,4 @@ class Home(MDScreen):
             #self.layout.remove_widget(self.calendar) # remove previous widgets
             pass
 
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
+#>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5

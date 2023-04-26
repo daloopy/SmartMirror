@@ -9,14 +9,14 @@ from kivymd.app import MDApp
 from kivymd.uix.button import *
 from user import *
 from kivy.animation import Animation
-<<<<<<< HEAD
+#<<<<<<< HEAD
 from internet import *
 from kivy.core.window import Window
 from motionsensor import *
-=======
+#=======
 #from startup/internet import *
 #from motionsensor import *
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
+#>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
 
 
 
