@@ -9,14 +9,8 @@ from kivymd.app import MDApp
 from kivymd.uix.button import *
 from user import *
 from kivy.animation import Animation
-#<<<<<<< HEAD
-from internet import *
-from kivy.core.window import Window
-from motionsensor import *
-#=======
 #from startup/internet import *
 #from motionsensor import *
-#>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
 
 
 
@@ -36,7 +30,7 @@ class MyApp(MDApp):
     
     def on_start(self, time=10):
         # Schedule a function to check for the global variable every second
-        Clock.schedule_interval(self.check_sleep_mode, time)
+        #Clock.schedule_interval(self.check_sleep_mode, time)
         pass
         
 
@@ -63,19 +57,14 @@ class StartupScreen(Screen):
         #wait_for_connection()
 
     def on_enter(self):
-        Clock.schedule_once(self.switch_to_home, 5)
-        
+        Clock.schedule_once(self.switch_to_home, 4)
 
     def switch_to_home(self, *args):
         self.manager.current = "Home"
         
-    def animate_image(self, *args):
-        anim = Animation
+
 
 
 
 if __name__ == "__main__":
-    Window.fullscreen = 'auto'
-    Window.maximize()
     MyApp().run()
-    

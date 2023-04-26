@@ -16,55 +16,46 @@ from kivymd.uix.button import *
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.floatlayout import MDFloatLayout
-<<<<<<< HEAD
-from kivymd.uix.responsivelayout import MDResponsiveLayout
-from kivymd.uix.label import MDLabel
-=======
 from spotipy.exceptions import SpotifyException
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
 import requests
-from kivy.core.window import Window
 
 class SpotifyPlayer(MDFloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        #self.cols = 1
+        #self.rows = 2
         
         # Initialize the Spotipy client with the access token
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
         # Set the output device to the current playing device 
-<<<<<<< HEAD
-        self.spID = getDeviceID() # "11d9bf2ca1e98be4eafafcf94df81143796be422"
-=======
         self.spID = getDeviceID()
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         #self.sp.transfer_playback(self.spID, force_play=True)
 
         # Create buttons
         self.play_button = MDFloatingActionButton(icon="play-box",
-                            size_hint=(0.1, 0.1), pos=(1050,200),
+                            size_hint=(0.1, 0.1), pos=(1500,200),
                             icon_size= "72")
         self.skip_button = MDFloatingActionButton(icon='skip-forward',
-                            size_hint=(0.1, 0.1), pos=(1200, 200),
+                            size_hint=(0.1, 0.1), pos=(1700, 200),
                             icon_size= "72")
         self.back_button = MDFloatingActionButton(icon='skip-backward',
-                            size_hint=(0.1, 0.1), pos=(900,200),
+                            size_hint=(0.1, 0.1), pos=(1300,200),
                             icon_size= "72")
         
         # Create song label
         self.song_layout = MDFloatLayout(radius = [25,0,25,0])
         self.song = Label(text="Now Listening...",
-                          size_hint = (0.1,0.1), pos = (800,25)
-                          )
+                          size_hint = (1,1))
         self.song_layout.add_widget(self.song)
         self.add_widget(self.song_layout)
-        
+        Clock.schedule_once(self.update_song, 2)
         
         # Create album cover image
         self.download_album_image()
-        self.album_image = Image(source='image.jpg', pos = (440,200), nocache=True, size=(100,100), allow_stretch=False, keep_ratio=True)
+        #elf.album_cover_url = self.get_album_image()
+        self.album_image = Image(source='image.jpg', pos = (500,200), nocache=True)
         self.song_layout.add_widget(self.album_image)
-        Clock.schedule_once(self.update_song, 1)
-        
+
         # Make button control panel
         self.control_layout = MDFloatLayout(radius = [25,25,0,0])
         self.add_widget(self.control_layout)
@@ -81,16 +72,6 @@ class SpotifyPlayer(MDFloatLayout):
 
         
     def skip_track(self):
-<<<<<<< HEAD
-        self.sp.next_track(device_id=self.spID)
-        Clock.schedule_once(self.update_song, 1)
-        self.toggle_play() #might need to delete this im freestlying rn
-    
-    def back_track(self):
-        self.sp.previous_track(device_id=self.spID)
-        Clock.schedule_once(self.update_song, 1)
-        self.toggle_play() #might need to delete this im freestlying rn
-=======
         if self.spID is not None:
             try:
                 self.sp.next_track(device_id=self.spID)
@@ -105,7 +86,6 @@ class SpotifyPlayer(MDFloatLayout):
                 Clock.schedule_once(self.update_song, 1)
             except (AttributeError, IndexError, TypeError, SpotifyException) as e:
                 return
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
 
     def toggle_play(self):
         try:    
@@ -131,20 +111,6 @@ class SpotifyPlayer(MDFloatLayout):
             return "Fetching Current Playback..."
 
     def update_song(self, dt):
-<<<<<<< HEAD
-        self.song.text = self.get_current_song()
-        self.download_album_image()
-        self.update_image()
-        
-    def update_image(self):
-        self.album_image.reload()
-        
-    def get_album_image(self):
-        current_playback = self.sp.current_playback()
-        album_cover_url = current_playback['item']['album']['images'][0]['url']
-        nocache_url = album_cover_url + "?cache={cache_buster}" + "&size=320x320"
-        return nocache_url
-=======
         try:
             self.song.text = self.get_current_song()
             
@@ -167,7 +133,6 @@ class SpotifyPlayer(MDFloatLayout):
             return nocache_url
         except (AttributeError, IndexError, TypeError, SpotifyException) as e:
             return None
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         
     def download_album_image(self):
         url = self.get_album_image()
@@ -245,4 +210,4 @@ def listSavedSongs():
         track = item['track']
         print(idx, track['artists'][0]['name'], " – ", track['name'])   
 
-#getDeviceID()
+getDeviceID()

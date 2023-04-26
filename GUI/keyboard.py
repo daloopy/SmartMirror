@@ -10,22 +10,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
 
 
-<<<<<<< HEAD
-class VirtualKeyboard(GridLayout):
-    def __init__(self, return_func=None, **kwargs):
-        super().__init__(**kwargs)
-        self.return_func = return_func
-        self.cols = 1
-        self.rows = 2
-
-        # Create a VirtualKeyboard widget
-        self.virtual_keyboard = VKeyboard(on_key_up = self.key_up)
-        self.add_widget(self.virtual_keyboard, index = 1)
-        
-        # create label that will be updated
-        self.input = Label(text='Enter input: ')
-        self.add_widget(self.input, index = 0)
-=======
 class VirtualKeyboard(BoxLayout):
     def __init__(self, return_func=None, preset_text="Enter input: ", **kwargs):
         super().__init__(**kwargs)
@@ -42,7 +26,6 @@ class VirtualKeyboard(BoxLayout):
         self.caps_lock = False
         
         
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
       
         
     def key_up(self, keyboard, keycode, label=None, *args):
@@ -50,14 +33,9 @@ class VirtualKeyboard(BoxLayout):
             keycode = keycode[1]
 
         thing = self.input.text
-<<<<<<< HEAD
-        
-        if (thing == "Enter input: "):
-=======
         self.shift = False
         
         if (thing == self.preset_text):
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
             thing = ""
 
         # keycode translations
@@ -80,14 +58,10 @@ class VirtualKeyboard(BoxLayout):
             keycode = ""
             if(self.return_func is not None):
                 self.return_func(self.input.text)
-<<<<<<< HEAD
-                
-=======
 
         if self.caps_lock == True or self.shift == True:
             keycode = keycode.upper()
 
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         # update label
         self.input.text = f'{thing}{keycode}'
         pass
@@ -96,24 +70,6 @@ class VirtualKeyboard(BoxLayout):
 class DigitKeyboard(BoxLayout):
     def __init__(self, return_func=None, **kwargs):
         super().__init__(**kwargs)
-<<<<<<< HEAD
-        self.return_func = return_func
-        self.input = Label(text = "")
-        self.add_widget(self.input)
-        
-        for i in range(10):
-            digit = Button(text=str(i), size_hint=(0.2,0.2))
-            digit.bind(on_release=lambda button: self.appendInput(button.text))
-            self.add_widget(digit)
-        
-        self.enter = Button(text="Enter", size_hint=(0.2,0.2))
-        self.enter.bind(on_press = self.exitPopup)
-        self.add_widget(self.enter)
-
-        self.delete = Button(text="Delete", size_hint=(0.2,0.2))
-        self.delete.bind(on_press = self.deleteInput)
-        self.add_widget(self.delete)
-=======
         self.orientation = "vertical"
         self.return_func = return_func
         self.input = Label(text = "", font_size= 120)
@@ -125,15 +81,8 @@ class DigitKeyboard(BoxLayout):
             digit = Button(text=str(i), size_hint=(1,0.3))
             digit.bind(on_release=lambda button: self.appendInput(button.text))
             self.button_layout.add_widget(digit)
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
         
-    def appendInput(self, text):
-        if(len(self.input.text) < 5):
-            self.input.text = self.input.text + str(text)
-        pass
 
-<<<<<<< HEAD
-=======
         self.enter = Button(text="Enter", size_hint=(1,0.3))
         self.enter.bind(on_press = self.exitPopup)
         self.button_layout.add_widget(self.enter)
@@ -150,7 +99,6 @@ class DigitKeyboard(BoxLayout):
             self.input.text = self.input.text + str(text)
         pass
 
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
     def deleteInput(self, dt):
         self.input.text = self.input.text[:-1]
         pass

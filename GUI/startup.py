@@ -163,4 +163,4 @@ class ExitScreen(Screen):
      
 
 if __name__ == "__main__":
-    StartUpApp().run()     
+    StartUpApp().run() 

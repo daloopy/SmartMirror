@@ -51,7 +51,6 @@ if __name__ == "__main__":
     main()    
 #add an event
 '''
-
 # Create the event for April 26 at 10pm
 event = {
     'summary': 'Example Event',
@@ -69,7 +68,6 @@ event = {
         'useDefault': True,
     },
 }
-
 # Insert the event into the calendar
 try:
     created_event = calendar_api.events().insert(calendarId='e5e1b4295b88651a4dc4fdfacc526f33547c980842641c4ad3e0fe8cf7099a34@group.calendar.google.com', body=event).execute()
@@ -77,4 +75,3 @@ try:
 except HttpError as error:
     print(f'An error occurred: {error}')
 '''
-    

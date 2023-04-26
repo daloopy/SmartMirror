@@ -40,8 +40,6 @@ def wait_for_connection():
 	while not is_internet_connected():
 		pass
 
-<<<<<<< HEAD
-=======
 def connect_to_wifi_userpass():
 	print("connecting to wifi...")
 	user = User()
@@ -77,4 +75,3 @@ def connect_to_wifi_userpass():
 connect_to_wifi_userpass()
 wait_for_connection()
 print("connected")
->>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5

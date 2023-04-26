@@ -9,7 +9,6 @@ def getWeather():
     token= "b2d5146e59af44d2b4d153350231402" #os.getenv("WEATHERAPI_TOKEN")
     url = "http://api.weatherapi.com/v1/current.json?key={}&q={}".format(token, zipcode)
     response = requests.get(url)
-#<<<<<<< HEAD
 
     if(response.ok):
         data = json.loads(response.text)
@@ -24,26 +23,3 @@ def getWeather():
         condition = "-"
 
     return town, temp_f, condition
-#=======
-
-    if(response.ok):
-        data = json.loads(response.text)
-        print("response 200")
-        town = data['location']["name"]
-        temp_f = data["current"]["temp_f"]
-        condition = data["current"]["condition"]["text"]
-
-    else:
-        town = "invalid zipcode"
-        temp_f = "-"
-        condition = "-"
-
-    return town, temp_f, condition
-
-#town, temp, condition = getWeather()
-#print(town, temp, condition)
-
-#>>>>>>> babb792a09b0be7471bcd318fdb852035532b5e5
-
-#town, temp, condition = getWeather()
-#print(town, temp, condition)
