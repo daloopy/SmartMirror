@@ -10,22 +10,22 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
 
 
-class VirtualKeyboard(GridLayout):
+class VirtualKeyboard(BoxLayout):
     def __init__(self, return_func=None, preset_text="Enter input: ", **kwargs):
         super().__init__(**kwargs)
         self.return_func = return_func
-        self.cols = 1
-        self.rows = 2
+        self.orientation = "vertical"
         self.preset_text = preset_text
+        # create label that will be updated
+        self.input = Label(text=preset_text, font_size= 120)
+        self.add_widget(self.input)
 
         # Create a VirtualKeyboard widget
-        self.virtual_keyboard = VKeyboard(on_key_up = self.key_up)
-        self.add_widget(self.virtual_keyboard, index = 1)
+        self.virtual_keyboard = VKeyboard(on_key_up = self.key_up, size=(2400, 600))
+        self.add_widget(self.virtual_keyboard)
         self.caps_lock = False
         
-        # create label that will be updated
-        self.input = Label(text=preset_text)
-        self.add_widget(self.input, index = 0)
+        
       
         
     def key_up(self, keyboard, keycode, label=None, *args):

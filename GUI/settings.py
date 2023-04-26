@@ -88,11 +88,11 @@ class updateWifiPopUp(Popup):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         
-        self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
+        self.layout = BoxLayout(orientation="vertical", padding = 10, spacing = 10)
         self.title = "Change wifi"
         
         
-        self.closeButton = Button(text = "Exit")
+        self.closeButton = Button(text = "Exit", size_hint=(1,0.3))
         self.closeButton.bind(on_press = self.dismiss)
         
         self.keyboard = VirtualKeyboard(return_func=self.updateWifi)
@@ -114,11 +114,11 @@ class updateUserPopUp(Popup):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         
-        self.layout = GridLayout(cols = 1, rows = 3, padding = 10)
+        self.layout = BoxLayout(orientation="vertical", padding = 10, spacing = 10)
         self.title = "Change Name"
         
         
-        self.closeButton = Button(text = "Exit")
+        self.closeButton = Button(text = "Exit", size_hint=(1,0.3))
         self.closeButton.bind(on_press = self.dismiss)
         
         self.keyboard = VirtualKeyboard(return_func=self.updateWifi)
