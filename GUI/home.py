@@ -61,6 +61,12 @@ class Home(MDScreen):
 
         # define widgets here ****************************
         self.spotify_player = SpotifyPlayer()
+        past_games, next_games = GetSportsInfo()
+        self.sport_games = MDLabel(text="{}{}".format(past_games, next_games),
+                                    size_hint=(0.5, 0.5),
+                                    pos_hint={"left": 0, "top":0.80},
+                                    font_size= 48, font_style = "H4")
+        
         #self.calendar = Calendar() # uncomment when created
         #self.sports_widget = Sports() # uncomment when created
 
@@ -96,9 +102,9 @@ class Home(MDScreen):
         elif(self.index == 2):
                 #pass
             self.layout.remove_widget(self.spotify_player) # remove previous widgets
-            #self.layout.add_widget(self.sports_widget)
+            self.layout.add_widget(self.sport_games)
         elif(self.index == 3):
-            #self.layout.remove_widget(self.sports_widget) # remove previous widgets
+            self.layout.remove_widget(self.sport_games) # remove previous widgets
             #self.layout.add_widget(self.calendar)
             pass
         elif(self.index == 0):
