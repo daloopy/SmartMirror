@@ -28,7 +28,7 @@ class SpotifyPlayer(MDFloatLayout):
         # Initialize the Spotipy client with the access token
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state,user-modify-playback-state'))
         # Set the output device to the current playing device 
-        self.spID = getDeviceID()
+        self.spID = "11d9bf2ca1e98be4eafafcf94df81143796be422"#getDeviceID()
         #self.sp.transfer_playback(self.spID, force_play=True)
 
         # Create buttons
@@ -148,16 +148,20 @@ class SpotifyPlayer(MDFloatLayout):
 
 def getDeviceID():
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope='user-read-playback-state'))
-    playback_info = sp.current_playback()
+    try:
+        playback_info = sp.current_playback()
+        print("bruh")
+        #if playback_info is None:
+            # print("\n\n****\n** No device is currently playing. Please start playing music on this device, then rerun. Otherwise, buttons won't work. **\n****\n\n")
+            # return None
 
-    # if playback_info is None:
-        # print("\n\n****\n** No device is currently playing. Please start playing music on this device, then rerun. Otherwise, buttons won't work. **\n****\n\n")
-        # return None
-
-    # # Print the device ID
-    # device_id = playback_info['device']['id']
-    # print(f"Your device ID is: {device_id}")
-    # return device_id
+        # Print the device ID
+        device_id = playback_info['device']['id']
+        print(f"Your device ID is: {device_id}")
+        return device_id
+    except Exception as e:
+        print("error in get spotify id")
+        return
 
 
 

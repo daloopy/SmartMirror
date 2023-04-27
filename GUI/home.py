@@ -30,7 +30,7 @@ class Home(MDScreen):
         super().__init__(**kwargs)
         self.layout = MDFloatLayout(pos = self.pos, size = self.size, radius = [25,0,0,0])
         self.index = 0
-        #town, temp, condition = getWeather()
+        town, temp, condition = getWeather()
         self.date_label = MDLabel(text=datetime.now().strftime("%B %d, %Y"),
                                 size_hint=(0.5, 0.5),
                                 pos_hint={"left": 0, "top":1},
@@ -39,14 +39,14 @@ class Home(MDScreen):
                                 size_hint=(0.5, 0.5),
                                 pos_hint={"left": 0, "top":0.90},
                                 font_size= 72, font_style = "H3")  
-        #self.weather_label = MDLabel(text="{}°F  {}".format(temp, condition),
-        #                            size_hint=(0.5, 0.5),
-        #                            pos_hint={"left": 0, "top":0.80},
-        #                            font_size= 48, font_style = "H4")
-        #self.town_label = MDLabel(text="{}".format(town),
-        #                            size_hint=(0.5, 0.5),
-        #                            pos_hint={"left": 0, "top":0.70},
-        #                            font_size= 48, font_style = "H4")
+        self.weather_label = MDLabel(text="{}°F  {}".format(temp, condition),
+                                    size_hint=(0.5, 0.5),
+                                    pos_hint={"left": 0, "top":0.80},
+                                    font_size= 48, font_style = "H4")
+        self.town_label = MDLabel(text="{}".format(town),
+                                    size_hint=(0.5, 0.5),
+                                    pos_hint={"left": 0, "top":0.70},
+                                    font_size= 48, font_style = "H4")
         
         self.settings_btn = MDFloatingActionButton(icon="cog",
                                                 theme_icon_color="Custom", size_hint = (0.1, 0.1),
@@ -60,12 +60,12 @@ class Home(MDScreen):
         self.togglewidgets.bind(on_press=self.cycle_widgets)
 
         # define widgets here ****************************
-        #self.spotify_player = SpotifyPlayer()
+        self.spotify_player = SpotifyPlayer()
         #self.calendar = Calendar() # uncomment when created
         #self.sports_widget = Sports() # uncomment when created
 
 
-        #self.layout.add_widget(self.weather_label)
+        self.layout.add_widget(self.weather_label)
         self.layout.add_widget(self.time_label)
         self.layout.add_widget(self.date_label)
         self.layout.add_widget(self.town_label)
@@ -91,11 +91,11 @@ class Home(MDScreen):
         self.index = (self.index + 1) % 4 # cycle through 3 widgets we will add
         
         if(self.index == 1):
-            #self.layout.add_widget(self.spotify_player)
-            pass
+                #pass
+                self.layout.add_widget(self.spotify_player)
         elif(self.index == 2):
-            pass
-            #self.layout.remove_widget(self.spotify_player) # remove previous widgets
+                #pass
+            self.layout.remove_widget(self.spotify_player) # remove previous widgets
             #self.layout.add_widget(self.sports_widget)
         elif(self.index == 3):
             #self.layout.remove_widget(self.sports_widget) # remove previous widgets
