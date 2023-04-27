@@ -12,6 +12,7 @@ from weatherapi import *
 from settings import *
 from motionsensor import *
 from spotify import *
+from SportTab import *
 import os
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.popup import Popup
@@ -31,6 +32,7 @@ class Home(MDScreen):
         self.layout = MDFloatLayout(pos = self.pos, size = self.size, radius = [25,0,0,0])
         self.index = 0
         town, temp, condition = getWeather()
+        past_game, next_game = GetSportsInfo()
         self.date_label = MDLabel(text=datetime.now().strftime("%B %d, %Y"),
                                 size_hint=(0.5, 0.5),
                                 pos_hint={"left": 0, "top":1},
@@ -61,12 +63,15 @@ class Home(MDScreen):
 
         # define widgets here ****************************
         self.spotify_player = SpotifyPlayer()
-        past_games, next_games = GetSportsInfo()
-        self.sport_games = MDLabel(text="{}{}".format(past_games, next_games),
+
+        self.sport_games_past = MDLabel(text="{}".format(past_game),
                                     size_hint=(0.5, 0.5),
-                                    pos_hint={"left": 0, "top":0.80},
-                                    font_size= 48, font_style = "H4")
-        
+                                    pos_hint={"right": 1, "top":0.80},
+                                    font_size= 48)
+        self.sport_games_next = MDLabel(text="{}".format(next_game),
+                                    size_hint=(0.5, 0.5),
+                                    pos_hint={"right": 1, "top":0.80},
+                                    font_size= 48)
         #self.calendar = Calendar() # uncomment when created
         #self.sports_widget = Sports() # uncomment when created
 
@@ -94,7 +99,7 @@ class Home(MDScreen):
         self.town_label.text = "{}".format(town)
 
     def cycle_widgets(self, dt):
-        self.index = (self.index + 1) % 4 # cycle through 3 widgets we will add
+        self.index = (self.index + 1) % 5 # cycle through 3 widgets we will add
         
         if(self.index == 1):
                 #pass
@@ -102,10 +107,13 @@ class Home(MDScreen):
         elif(self.index == 2):
                 #pass
             self.layout.remove_widget(self.spotify_player) # remove previous widgets
-            self.layout.add_widget(self.sport_games)
+            self.layout.add_widget(self.sport_games_past)
         elif(self.index == 3):
-            self.layout.remove_widget(self.sport_games) # remove previous widgets
-            #self.layout.add_widget(self.calendar)
+            self.layout.remove_widget(self.sport_games_past) # remove previous widgets
+            self.layout.add_widget(self.sport_games_next)
+            pass
+        elif(self.index == 4):
+            self.layout.remove_widget(self.sport_games_next) # remove previous widgets
             pass
         elif(self.index == 0):
             # have no widgets on screen

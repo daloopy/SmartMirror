@@ -99,5 +99,4 @@ def GetSportsInfo():
     print(next_game)
     return past_game, next_game
 
-past_game, next_game = GetSportsInfo()
 

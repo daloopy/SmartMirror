@@ -16,3 +16,5 @@ WEATHERAPI_TOKEN    - Weaterapi.com account token
 
 Dependencies:
 pip install spotipy --upgrade
+pip3 install pytz
+pip3 install python-dateutil
