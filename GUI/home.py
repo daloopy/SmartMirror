@@ -33,6 +33,9 @@ class Home(MDScreen):
         self.index = 0
         town, temp, condition = getWeather()
         past_game, next_game = GetSportsInfo()
+        events = Calendar()
+        news = News()
+
         self.date_label = MDLabel(text=datetime.now().strftime("%B %d, %Y"),
                                 size_hint=(0.5, 0.5),
                                 pos_hint={"left": 0, "top":1},
@@ -72,8 +75,14 @@ class Home(MDScreen):
                                     size_hint=(0.5, 0.5),
                                     pos_hint={"right": 1, "top":0.80},
                                     font_size= 48)
-        #self.calendar = Calendar() # uncomment when created
-        #self.sports_widget = Sports() # uncomment when created
+        self.calendar = MDLabel(text="{}".format(events),
+                                    size_hint=(0.5, 0.5),
+                                    pos_hint={"right": 1, "top":0.80},
+                                    font_size= 48)
+        self.news = MDLabel(text="{}".format(news),
+                                    size_hint=(0.5, 0.5),
+                                    pos_hint={"right": 1, "top":0.80},
+                                    font_size= 48)
 
 
         self.layout.add_widget(self.weather_label)
@@ -99,7 +108,7 @@ class Home(MDScreen):
         self.town_label.text = "{}".format(town)
 
     def cycle_widgets(self, dt):
-        self.index = (self.index + 1) % 5 # cycle through 3 widgets we will add
+        self.index = (self.index + 1) % 7 # cycle through 3 widgets we will add
         
         if(self.index == 1):
                 #pass
@@ -114,8 +123,13 @@ class Home(MDScreen):
             pass
         elif(self.index == 4):
             self.layout.remove_widget(self.sport_games_next) # remove previous widgets
+            self.add_widget(self.news)
+            pass
+        elif(self.index == 5):
+            self.layout.remove_widget(self.news) # remove previous widgets
+            self.add_widget(self.calendar)
             pass
         elif(self.index == 0):
             # have no widgets on screen
-            #self.layout.remove_widget(self.calendar) # remove previous widgets
+            self.layout.remove_widget(self.calendar) # remove previous widgets
             pass
